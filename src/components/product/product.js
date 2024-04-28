@@ -31,6 +31,9 @@ export default function Product(props) {
     <div className="product-barcode">
       <TextEdit title={props.product.barcode} color="2" saveToLocalStorage={(value) => saveToLocalStorage(value, "barcode")} />
     </div>
+    <div className="product-quantity">
+      <TextEdit title={props.product.quantity} color="3" saveToLocalStorage={(value) => saveToLocalStorage(value, "quantity")} />
+    </div>
     </div>
   );
 }

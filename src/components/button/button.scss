@@ -10,12 +10,41 @@
     border-radius: 50%;
   }
 
-  &.color {
+  &.outlined button {
+    background: none;
+    border: 0;
+  }
+
+  &.bgColor {
     &-1 button {
       background-color: lightblue;
     }
     &-2 button {
       background-color: lightgreen;
+    }
+    &-3 button {
+      background-color: lightpink;
+    }
+  }
+
+  &.color {
+    &-danger button {
+      color: rgb(163, 20, 20);
+    }
+    &-white button {
+      color: white;
+    }
+  }
+
+  &.size {
+    &-small button {
+      font-size: 1em;
+    }
+    &-medium button {
+      font-size: 1.2em;
+    }
+    &-big button {
+      font-size: 1.5em;
     }
   }
 }

@@ -1,20 +1,35 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ProductItem from "../product-item/product-item";
 
 import "./products-list.scss";
+import Button from "../button/button";
 
 export default function ProductsList() {
   const [productsList, setProductsList] = useState([]);
+  const [isPopUpVisible, setPopUpVisible] = useState({visible: false, id: null});
+  const refPopUp = useRef(null);
 
   useEffect(() => {
     const storedProducts = JSON.parse(localStorage.getItem("products"));
     if (storedProducts) {
       setProductsList(storedProducts);
     }
+    const handleClickOutside = (event) => {
+      if (refPopUp.current && !refPopUp.current.contains(event.target)) {
+        console.log("1");
+        setPopUpVisible({visible: false, id: null});
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
   }, []);
 
   const showProductsList = () => {
-    return productsList.map(product => <ProductItem product={product} key={product.id} />);
+    return productsList.map(product => <ProductItem product={product} key={product.id} deleteProduct={deleteProduct} />);
   }
 
   const addProduct = () => {
@@ -25,10 +40,45 @@ export default function ProductsList() {
     // localStorage.setItem("products", newproductsListString);
   }
 
+  const deleteProduct = (event, id) => {
+    event.preventDefault();
+    setPopUpVisible({visible: true, id});
+    event.stopPropagation();
+  }
+
+  const removeProductFromStorage = () => {
+    const storedProducts = JSON.parse(localStorage.getItem("products"));
+    const productFoundIndex = storedProducts.findIndex(product => product.id === isPopUpVisible.id);
+    const newProductsList = storedProducts;
+    newProductsList.splice(productFoundIndex, 1);
+    const newproductsListString = JSON.stringify(newProductsList);
+    localStorage.setItem("products", newproductsListString);
+  }
+
+  const popUpYes = () => {
+    removeProductFromStorage();
+    setPopUpVisible({visible: false, id: null});
+  }
+
+  const popUpNo = () => {
+    setPopUpVisible({visible: false, id: null});
+  }
+
   return (
     <div className="products-list">
       { showProductsList() }
-      <button onClick={addProduct}>ADD</button>
+      {/* <button onClick={addProduct}>ADD</button> */}
+      <div className={"delete-confirmation" + ((!isPopUpVisible.visible) ? " hidden" : "")}>
+        <div className="delete-confirmation-box">
+          <div className="delete-confirmation-box-container" ref={refPopUp}>
+            <div>Delete this product?</div>
+            <div className="delete-confirmation-box-container-actions">
+              <Button title="Yes" outlined color="danger" size="medium" onClick={popUpYes} />
+              <Button title="No" outlined color="white" size="medium" onClick={popUpNo} />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

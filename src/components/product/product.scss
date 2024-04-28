@@ -6,7 +6,7 @@
   text-align: center;
   width: 100%;
 
-  &-name, &-barcode {
+  &-name, &-barcode, &-quantity {
     width: 100%;
   }
   & > *:not(:last-child) {

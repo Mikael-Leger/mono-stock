@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
 import "./product-item.scss"
 import Image from "next/image";
-import { FaRegFileImage } from "react-icons/fa";
+import { FaRegFileImage, FaRegTrashAlt } from "react-icons/fa";
 
 export default function ProductItem(props) {
   const router = useRouter();
@@ -29,6 +29,12 @@ export default function ProductItem(props) {
         <div className="product-item-text-barcode">
           { props.product.barcode || "XXXX XXXX XXXX" }
         </div>
+        <div className="product-item-text-barcode">
+          { props.product.quantity || "??" }
+        </div>
+      </div>
+      <div className="product-item-actions">
+        <FaRegTrashAlt className="icon-small danger" onClick={(e) => props.deleteProduct(e, props.product.id)} />
       </div>
     </div>
   );

@@ -1,12 +1,10 @@
 .photo-edit {
-
-}
-
-.photo-empty {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 150px;
-  height: 150px;
-  background-color: lightgray;
+  & .photo-empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 150px;
+    background-color: lightgray;
+  }
 }

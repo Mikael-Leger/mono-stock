@@ -5,19 +5,25 @@
   padding: 7px;
   background-color: lightblue;
   color: black;
+  position: relative;
 
   &-text {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
   }
-}
 
-.photo-empty {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 70px;
-  height: 70px;
-  background-color: lightgray;
+  &-actions {
+    position: absolute;
+    right: 7px;
+  }
+
+  & .photo-empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 70px;
+    background-color: lightgray;
+  }
 }

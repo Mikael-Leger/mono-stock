@@ -2,9 +2,14 @@ import "./button.scss"
 
 export default function Button(props) {
   return (
-    <div className={"button color-" + (props.color || 0) + ((props.circle) ? " circle" : "")}>
+    <div className={"button"
+      + ((props.color) ? " color-" + props.color : "")
+      + ((props.bgColor) ? " bgColor-" + props.bgColor : "")
+      + ((props.circle) ? " circle" : "")
+      + ((props.outlined) ? " outlined" : "")
+      + ((props.size) ? " size-" + props.size : "")}>
       <button onClick={props.onClick}>
-        { props.icon }
+        { props.icon } { props.title }
       </button>
     </div>
   );

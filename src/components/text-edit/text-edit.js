@@ -33,7 +33,7 @@ export default function TextEdit(props) {
       </div>
       <div className={"input " + (!isEditable ? "hidden" : "")}>
         <input type="text" defaultValue={title} ref={inputRef} />
-        <Button onClick={saveEdit} icon={<FaRegSave className='icon-small' />} color={props.color} />
+        <Button onClick={saveEdit} icon={<FaRegSave className='icon-small' />} bgColor={props.color} />
       </div>
     </div>
   );
