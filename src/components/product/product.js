@@ -22,17 +22,14 @@ export default function Product(props) {
 
   return (
     <div className="product">
-    {/* <div className="product-photo">
-      <PhotoEdit />
-    </div> */}
     <div className="product-photo">
-      <PhotoEdit src={props.product.photo} saveToLocalStorage={(value) => saveToLocalStorage(value, "savedPhoto")} />
+      <PhotoEdit src={props.product.photo} saveToLocalStorage={(value) => saveToLocalStorage(value, "photo")} />
     </div>
     <div className="product-name">
-      <TextEdit title={props.product.name} color="0" saveToLocalStorage={(value) => saveToLocalStorage(value, "name")} />
+      <TextEdit title={props.product.name} color="1" saveToLocalStorage={(value) => saveToLocalStorage(value, "name")} />
     </div>
     <div className="product-barcode">
-      <TextEdit title={props.product.barcode} color="1" saveToLocalStorage={(value) => saveToLocalStorage(value, "barcode")} />
+      <TextEdit title={props.product.barcode} color="2" saveToLocalStorage={(value) => saveToLocalStorage(value, "barcode")} />
     </div>
     </div>
   );

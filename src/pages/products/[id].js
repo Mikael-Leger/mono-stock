@@ -24,6 +24,8 @@ export default function ProductPage() {
   }
 
   return (
-    <Product product={product} />
+    <div className="product-page">
+      <Product product={product} />
+    </div>
   );
 }

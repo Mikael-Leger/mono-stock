@@ -9,11 +9,18 @@ export default function ProductItem(props) {
   const goToProduct = () => {
     router.push('/products/' + props.product.id);
   }
+
+  const showProductPhoto = () => {
+    if (props.product.photo) {
+      return <Image src={props.product.photo} width={70} height={70} alt="Product photo" />;
+    }
+    return <div className="photo-empty"><FaRegFileImage className="icon-medium" /></div>;
+  }
+
   return (
     <div className="product-item" onClick={goToProduct}>
       <div className="product-item-photo">
-        <div className="photo-empty"><FaRegFileImage className="icon-medium" /></div>
-        {/* <Image src={props.photo} width={70} height={70} alt="Product photo" /> */}
+        { showProductPhoto() }
       </div>
       <div className="product-item-text">
         <div className="product-item-text-name">

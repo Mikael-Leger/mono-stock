@@ -3,13 +3,18 @@
     border: 1px solid white;
     padding: 3px;
     color: black;
+    background-color: rgb(138, 138, 138);
+  }
+
+  &.circle button {
+    border-radius: 50%;
   }
 
   &.color {
-    &-0 button {
+    &-1 button {
       background-color: lightblue;
     }
-    &-1 button {
+    &-2 button {
       background-color: lightgreen;
     }
   }
