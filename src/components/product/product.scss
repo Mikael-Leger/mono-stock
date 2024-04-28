@@ -2,14 +2,16 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 10px;
   align-items: center;
   text-align: center;
   width: 100%;
 
   &-name, &-barcode, &-quantity {
     width: 100%;
-  }
-  & > *:not(:last-child) {
-    margin-bottom: 10px;
+
+    & .title {
+      height: 30px;
+    }
   }
 }

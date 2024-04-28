@@ -6,12 +6,15 @@ import "./back-button.scss"
 export default function BackButton(props) {
   const router = useRouter();
 
+  if (router.asPath === "/") {
+    return <></>;
+  }
+
   const goBack = () => {
     const fullUrl = router.asPath;
     const pathArr = fullUrl.split('/');
     pathArr.pop();
     const newUrl = pathArr.join('/');
-    console.log({newUrl});
     router.push(newUrl || '/');
   }
 

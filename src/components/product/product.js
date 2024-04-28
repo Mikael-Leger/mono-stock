@@ -12,10 +12,19 @@ export default function Product(props) {
     const storedProducts = JSON.parse(localStorage.getItem("products"));
     const productFound = storedProducts.find(product => product.id === id);
     const productFoundIndex = storedProducts.findIndex(product => product.id === id);
-    const { ...newProduct } = productFound
-    newProduct[`${type}`] = value;
     const newProductsList = storedProducts;
-    newProductsList[productFoundIndex] = newProduct;
+    
+    if (productFoundIndex === -1) {
+      const newProduct = { id };
+      newProduct[`${type}`] = value;
+      newProductsList.push(newProduct);
+
+    } else {
+      const { ...newProduct } = productFound;
+      newProduct[`${type}`] = value;
+      newProductsList[productFoundIndex] = newProduct;
+
+    }
     const newproductsListString = JSON.stringify(newProductsList);
     localStorage.setItem("products", newproductsListString);
   }
@@ -23,16 +32,16 @@ export default function Product(props) {
   return (
     <div className="product">
     <div className="product-photo">
-      <PhotoEdit src={props.product.photo} saveToLocalStorage={(value) => saveToLocalStorage(value, "photo")} />
+      <PhotoEdit src={props.product && props.product.photo} saveToLocalStorage={(value) => saveToLocalStorage(value, "photo")} />
     </div>
     <div className="product-name">
-      <TextEdit title={props.product.name} color="1" saveToLocalStorage={(value) => saveToLocalStorage(value, "name")} />
+      <TextEdit title={props.product && props.product.name} color="primary" saveToLocalStorage={(value) => saveToLocalStorage(value, "name")} />
     </div>
     <div className="product-barcode">
-      <TextEdit title={props.product.barcode} color="2" saveToLocalStorage={(value) => saveToLocalStorage(value, "barcode")} />
+      <TextEdit title={props.product && props.product.barcode} color="secondary" saveToLocalStorage={(value) => saveToLocalStorage(value, "barcode")} />
     </div>
     <div className="product-quantity">
-      <TextEdit title={props.product.quantity} color="3" saveToLocalStorage={(value) => saveToLocalStorage(value, "quantity")} />
+      <TextEdit title={props.product && props.product.quantity} color="tertiary" saveToLocalStorage={(value) => saveToLocalStorage(value, "quantity")} />
     </div>
     </div>
   );

@@ -16,13 +16,13 @@
     }
   }
   &.color {
-    &-1 .title {
+    &-primary .title {
       background-color: lightblue;
     }
-    &-2 .title {
+    &-secondary .title {
       background-color: lightgreen;
     }
-    &-3 .title {
+    &-tertiary .title {
       background-color: lightpink;
     }
   }

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from 'next/router';
 import ProductItem from "../product-item/product-item";
 
 import "./products-list.scss";
@@ -8,6 +9,7 @@ export default function ProductsList() {
   const [productsList, setProductsList] = useState([]);
   const [isPopUpVisible, setPopUpVisible] = useState({visible: false, id: null});
   const refPopUp = useRef(null);
+  const router = useRouter();
 
   useEffect(() => {
     const storedProducts = JSON.parse(localStorage.getItem("products"));
@@ -16,7 +18,6 @@ export default function ProductsList() {
     }
     const handleClickOutside = (event) => {
       if (refPopUp.current && !refPopUp.current.contains(event.target)) {
-        console.log("1");
         setPopUpVisible({visible: false, id: null});
       }
     };
@@ -33,11 +34,11 @@ export default function ProductsList() {
   }
 
   const addProduct = () => {
-    // const newProductsList = productsList;
-    // console.log(newProductsList);
-    // newProductsList.push({id: "0001", name: "Uwu", barcode: null, photo: null});
-    // const newproductsListString = JSON.stringify(newProductsList);
-    // localStorage.setItem("products", newproductsListString);
+    const storedProducts = JSON.parse(localStorage.getItem("products"));
+    storedProducts.sort((a, b) => a.id - b.id);
+    const lastId = parseInt(storedProducts[storedProducts.length - 1].id);
+    const newId = (lastId + 1).toString().padStart(4, '0');
+    router.push("/products/" + newId);
   }
 
   const deleteProduct = (event, id) => {
@@ -66,8 +67,12 @@ export default function ProductsList() {
 
   return (
     <div className="products-list">
-      { showProductsList() }
-      {/* <button onClick={addProduct}>ADD</button> */}
+      <div className="products-list-container">
+        { showProductsList() }
+      </div>
+      <div className="products-list-add">
+        <Button title="ADD" onClick={addProduct} bgColor="primary" />
+      </div>
       <div className={"delete-confirmation" + ((!isPopUpVisible.visible) ? " hidden" : "")}>
         <div className="delete-confirmation-box">
           <div className="delete-confirmation-box-container" ref={refPopUp}>

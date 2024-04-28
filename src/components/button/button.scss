@@ -16,13 +16,13 @@
   }
 
   &.bgColor {
-    &-1 button {
+    &-primary button {
       background-color: lightblue;
     }
-    &-2 button {
+    &-secondary button {
       background-color: lightgreen;
     }
-    &-3 button {
+    &-tertiary button {
       background-color: lightpink;
     }
   }

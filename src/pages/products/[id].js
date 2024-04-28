@@ -12,16 +12,13 @@ export default function ProductPage() {
     const storedProducts = JSON.parse(localStorage.getItem("products"));
     if (id && storedProducts) {
       const productFound = storedProducts.find(product => product.id === id);
-      if (productFound == -1) {
-        router.push("/products");
-      }
       setProduct(productFound);
     }
-  }, [id, router]);
+  }, [id]);
 
-  if (!product) {
-    return <></>
-  }
+  // if (!product) {
+  //   return <></>
+  // }
 
   return (
     <div className="product-page">
