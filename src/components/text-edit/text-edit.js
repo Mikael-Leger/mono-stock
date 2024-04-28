@@ -22,7 +22,9 @@ export default function TextEdit(props) {
   }
 
   const saveEdit = () => {
-    setTitle(inputRef.current.value)
+    const { value } = inputRef.current;
+    localStorage.setItem(props.id + '-' + props.type, value);
+    setTitle(value)
     setEditable(false);
   }
 

@@ -107,6 +107,20 @@ a {
   }
 }
 
+.main {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+}
+
+.page-container {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  width: 60vw;
+  margin-top: 10vh;
+}
+
 .hidden {
   display: none !important;
 }

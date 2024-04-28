@@ -15,11 +15,16 @@ export default function PhotoEdit(props) {
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        setPhotoURL(reader.result);
+        updatePhoto(reader.result);
       };
       reader.readAsDataURL(file);
     }
   };
+
+  const updatePhoto = (photo) => {
+    localStorage.setItem(props.id + '-savedPhoto', photo);
+    setPhotoURL(photo);
+  }
 
   const showPhoto = () => {
     if (photoURL) {
