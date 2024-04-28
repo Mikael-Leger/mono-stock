@@ -1,5 +1,3 @@
-'use client'
-
 import React, { useRef, useState } from 'react';
 import Image from "next/image";
 
@@ -21,9 +19,9 @@ export default function PhotoEdit(props) {
     }
   };
 
-  const updatePhoto = (photo) => {
-    localStorage.setItem(props.id + '-savedPhoto', photo);
-    setPhotoURL(photo);
+  const updatePhoto = (value) => {
+    props.saveToLocalStorage(value);
+    setPhotoURL(value);
   }
 
   const showPhoto = () => {

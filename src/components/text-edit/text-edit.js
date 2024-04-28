@@ -1,10 +1,8 @@
-'use client'
-
 import React, { useState, useRef, useEffect  } from 'react';
-import "./text-edit.scss"
 
 import { FaRegSave } from "react-icons/fa";
 import Button from '../button/button';
+import "./text-edit.scss"
 
 export default function TextEdit(props) {
   const [title, setTitle] = useState(props.title);
@@ -23,7 +21,7 @@ export default function TextEdit(props) {
 
   const saveEdit = () => {
     const { value } = inputRef.current;
-    localStorage.setItem(props.id + '-' + props.type, value);
+    props.saveToLocalStorage(value);
     setTitle(value)
     setEditable(false);
   }
