@@ -54,6 +54,7 @@ export default function ProductsList() {
     newProductsList.splice(productFoundIndex, 1);
     const newproductsListString = JSON.stringify(newProductsList);
     localStorage.setItem("products", newproductsListString);
+    setProductsList(newProductsList);
   }
 
   const popUpYes = () => {
