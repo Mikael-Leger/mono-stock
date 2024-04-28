@@ -1,0 +1,15 @@
+.product {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+
+  &-name, &-barcode {
+    width: 100%;
+  }
+  & > *:not(:last-child) {
+    margin-bottom: 10px;
+  }
+}

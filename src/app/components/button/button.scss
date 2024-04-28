@@ -1,0 +1,16 @@
+.button {
+  & button {
+    border: 1px solid white;
+    padding: 3px;
+    color: black;
+  }
+
+  &.color {
+    &-0 button {
+      background-color: lightblue;
+    }
+    &-1 button {
+      background-color: lightgreen;
+    }
+  }
+}
