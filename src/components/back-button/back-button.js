@@ -7,7 +7,12 @@ export default function BackButton(props) {
   const router = useRouter();
 
   const goBack = () => {
-    router.back()
+    const fullUrl = router.asPath;
+    const pathArr = fullUrl.split('/');
+    pathArr.pop();
+    const newUrl = pathArr.join('/');
+    console.log({newUrl});
+    router.push(newUrl || '/');
   }
 
   return (
