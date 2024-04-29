@@ -17,13 +17,13 @@
 
   &.bgColor {
     &-primary button {
-      background-color: lightblue;
+      background-color: var(--color-primary);
     }
     &-secondary button {
-      background-color: lightgreen;
+      background-color: var(--color-secondary);
     }
     &-tertiary button {
-      background-color: lightpink;
+      background-color: var(--color-tertiary);
     }
   }
 

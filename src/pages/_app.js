@@ -1,5 +1,3 @@
-import Link from 'next/link';
-import '../app/globals.css';
 import React from 'react';
 import BackButton from '@/components/back-button/back-button';
 

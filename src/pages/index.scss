@@ -1,0 +1,10 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+
+  & .title {
+    font-size: 3em;
+    text-align: center;
+  }
+}

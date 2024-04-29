@@ -17,13 +17,13 @@
   }
   &.color {
     &-primary .title {
-      background-color: lightblue;
+      background-color: var(--color-primary);
     }
     &-secondary .title {
-      background-color: lightgreen;
+      background-color: var(--color-secondary);
     }
     &-tertiary .title {
-      background-color: lightpink;
+      background-color: var(--color-tertiary);
     }
   }
 }
