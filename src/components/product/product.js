@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import PhotoEdit from "../photo-edit/photo-edit";
 import TextEdit from "../text-edit/text-edit";
 import "./product.scss"
+import SwitchText from '../switch-text/switch-text';
 
 export default function Product(props) {
   const router = useRouter();
@@ -31,18 +32,21 @@ export default function Product(props) {
 
   return (
     <div className="product">
-    <div className="product-photo">
-      <PhotoEdit src={props.product && props.product.photo} saveToLocalStorage={(value) => saveToLocalStorage(value, "photo")} />
-    </div>
-    <div className="product-name">
-      <TextEdit title={props.product && props.product.name} color="primary" saveToLocalStorage={(value) => saveToLocalStorage(value, "name")} />
-    </div>
-    <div className="product-barcode">
-      <TextEdit title={props.product && props.product.barcode} color="secondary" saveToLocalStorage={(value) => saveToLocalStorage(value, "barcode")} />
-    </div>
-    <div className="product-quantity">
-      <TextEdit title={props.product && props.product.quantity} color="tertiary" saveToLocalStorage={(value) => saveToLocalStorage(value, "quantity")} />
-    </div>
+      <div className="product-photo">
+        <PhotoEdit src={props.product && props.product.photo} saveToLocalStorage={(value) => saveToLocalStorage(value, "photo")} />
+      </div>
+      <div className="product-name">
+        <TextEdit title={props.product && props.product.name} color="primary" saveToLocalStorage={(value) => saveToLocalStorage(value, "name")} />
+      </div>
+      <div className="product-barcode">
+        <TextEdit title={props.product && props.product.barcode} color="secondary" saveToLocalStorage={(value) => saveToLocalStorage(value, "barcode")} />
+      </div>
+      <div className="product-quantity">
+        <TextEdit title={props.product && props.product.quantity} color="tertiary" saveToLocalStorage={(value) => saveToLocalStorage(value, "quantity")} />
+      </div>
+      <div className="product-refill">
+        <SwitchText />
+      </div>
     </div>
   );
 }
