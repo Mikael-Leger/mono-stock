@@ -34,10 +34,15 @@ export default function ProductsList() {
   }
 
   const addProduct = () => {
-    const storedProducts = JSON.parse(localStorage.getItem("products")) || [];
-    storedProducts.sort((a, b) => a.id - b.id);
-    const lastId = parseInt(storedProducts[storedProducts.length - 1].id);
-    const newId = (lastId + 1).toString().padStart(4, '0');
+    const storedProducts = JSON.parse(localStorage.getItem("products"));
+    let newId = "0001";
+    
+    if (storedProducts) {
+      storedProducts.sort((a, b) => a.id - b.id);
+      const lastId = parseInt(storedProducts[storedProducts.length - 1].id);
+      newId = (lastId + 1).toString().padStart(4, '0');
+
+    }
     router.push("/products/" + newId);
   }
 
