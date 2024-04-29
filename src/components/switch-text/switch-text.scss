@@ -1,3 +1,53 @@
 .switch-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+ button {
+    border: 0;
+    padding: 4px;
+    background: none;
+  }
   
+  &.switch {
+    &-off {
+      .switch-text-button button {
+        color: var(--color-danger);
+      }
+
+      .switch-text-input {
+        display: none;
+      }
+    }
+
+    &-on {
+      .switch-text-button button {
+        color: var(--color-success);
+      }
+
+      .switch-text-input input {
+        background-color: var(--color-info);
+      }
+    }
+  }
+
+  &-input {
+    display: flex;
+    justify-content: space-between;
+
+    .title {
+      padding: 7px;
+      color: black;
+    }
+
+    input[type="number"] {
+      border: 0;
+      padding: 7px;
+      color: black;
+      width: 15vw;
+      text-align: center;
+    }
+  }
 }

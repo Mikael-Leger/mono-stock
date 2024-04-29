@@ -20,7 +20,7 @@ export default function PhotoEdit(props) {
   };
 
   const updatePhoto = (value) => {
-    props.saveToLocalStorage(value);
+    props.saveToLocal(value);
     setPhotoURL(value);
   }
 

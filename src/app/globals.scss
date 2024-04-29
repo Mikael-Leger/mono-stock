@@ -3,6 +3,12 @@
   --color-secondary: lightgreen;
   --color-tertiary: lightpink;
   --color-empty: lightgray;
+  --color-danger: rgb(192, 20, 20);
+  --color-success: rgb(20, 192, 29);
+  --color-info: rgb(205, 218, 27);
+  --color-locked: rgb(107, 114, 116);
+  --color-input: rgb(204, 215, 218);
+  --color-placeholder: rgb(129, 133, 134);
 
   --max-width: 1100px;
   --border-radius: 12px;
@@ -145,5 +151,5 @@ a {
 }
 
 .danger {
-  color: rgb(192, 20, 20);
+  color: var(--color-danger);
 }

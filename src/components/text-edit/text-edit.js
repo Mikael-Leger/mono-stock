@@ -5,7 +5,7 @@ import Button from '../button/button';
 import "./text-edit.scss"
 
 export default function TextEdit(props) {
-  const [title, setTitle] = useState(props.title);
+  const [title, setTitle] = useState(props.value);
   const [isEditable, setEditable] = useState(false);
   const inputRef = useRef(null);
 
@@ -15,22 +15,37 @@ export default function TextEdit(props) {
     }
   }, [isEditable]);
 
+  useEffect(() => {
+    setTitle(props.value);
+  }, [props.value]);
+
   const startEdit = () => {
     setEditable(true);
   }
 
   const saveEdit = () => {
     const { value } = inputRef.current;
-    props.saveToLocalStorage(value);
+    props.saveToLocal(value);
     setTitle(value)
     setEditable(false);
   }
 
+  const showTitle = () => {
+    let titleStr = title;
+    if (!title) {
+      titleStr = <div className='text-edit-placeholder'>{props.placeholder}</div>;
+    }
+    return (
+      <div className={"text-edit-title " + (isEditable ? "hidden" : "")}
+        onClick={startEdit}>
+        { titleStr }
+      </div>
+    );
+  }
+
   return (
     <div className={"text-edit color-" + props.color}>
-      <div className={"title " + (isEditable ? "hidden" : "")} onClick={startEdit}>
-          { title }
-      </div>
+      { showTitle() }
       <div className={"input " + (!isEditable ? "hidden" : "")}>
         <input type="text" defaultValue={title} ref={inputRef} />
         <Button onClick={saveEdit} icon={<FaRegSave className='icon-small' />} bgColor={props.color} />
