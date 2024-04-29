@@ -20,7 +20,7 @@ export default function BackButton(props) {
 
   return (
     <div className='back-button'>
-      <Button onClick={goBack} icon={<FaAngleLeft className='icon-medium' />} circle />
+      <Button bgColor="primary" onClick={goBack} icon={<FaAngleLeft className='icon-medium' />} circle />
     </div>
   );
 }

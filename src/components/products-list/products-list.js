@@ -68,19 +68,19 @@ export default function ProductsList() {
 
   return (
     <div className="products-list">
+      <div className="products-list-add">
+        <Button value="ADD" onClick={addProduct} bgColor="primary" size="medium" />
+      </div>
       <div className="products-list-container">
         { showProductsList() }
-      </div>
-      <div className="products-list-add">
-        <Button title="ADD" onClick={addProduct} bgColor="primary" />
       </div>
       <div className={"delete-confirmation" + ((!isPopUpVisible.visible) ? " hidden" : "")}>
         <div className="delete-confirmation-box">
           <div className="delete-confirmation-box-container" ref={refPopUp}>
             <div>Delete this product?</div>
             <div className="delete-confirmation-box-container-actions">
-              <Button title="Yes" outlined color="danger" size="medium" onClick={popUpYes} />
-              <Button title="No" outlined color="white" size="medium" onClick={popUpNo} />
+              <Button value="Yes" outlined color="danger" size="medium" onClick={popUpYes} />
+              <Button value="No" outlined color="white" size="medium" onClick={popUpNo} />
             </div>
           </div>
         </div>

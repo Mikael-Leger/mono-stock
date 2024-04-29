@@ -4,6 +4,7 @@ import Footer from '@/components/footer/footer';
 import Header from '@/components/header/header';
 
 import "../app/globals.scss";
+import "./app.scss";
 
 function MyApp({ Component, pageProps }) {
   return (

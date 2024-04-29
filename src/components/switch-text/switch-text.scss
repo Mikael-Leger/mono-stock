@@ -39,13 +39,13 @@
 
     .title {
       padding: 7px;
-      color: black;
+      color: var(--color-black);
     }
 
     input[type="number"] {
       border: 0;
       padding: 7px;
-      color: black;
+      color: var(--color-black);
       width: 15vw;
       text-align: center;
     }

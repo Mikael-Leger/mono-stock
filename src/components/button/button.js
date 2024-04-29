@@ -9,7 +9,7 @@ export default function Button(props) {
       + ((props.outlined) ? " outlined" : "")
       + ((props.size) ? " size-" + props.size : "")}>
       <button onClick={props.onClick}>
-        { props.icon } { props.title }
+        { props.icon } { props.value }
       </button>
     </div>
   );

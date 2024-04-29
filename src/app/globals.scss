@@ -1,4 +1,6 @@
 :root {
+  --color-white: rgb(255, 255, 255);
+  --color-black: rgb(0, 0, 0);
   --color-primary: lightblue;
   --color-secondary: lightgreen;
   --color-tertiary: lightpink;
@@ -116,19 +118,6 @@ a {
   html {
     color-scheme: dark;
   }
-}
-
-.main {
-  display: flex;
-  justify-content: center;
-  height: 100vh;
-}
-
-.page-container {
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: column;
-  width: 60vw;
 }
 
 .hidden {

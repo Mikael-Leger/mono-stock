@@ -9,7 +9,10 @@ export default function Menu() {
         <Link href="/products">Products</Link>
       </div>
       <div className="menu-item">
-        <Link href="/">Coming soon</Link>
+        <Link href="/data">Data</Link>
+      </div>
+      <div className="menu-item">
+        <Link href="/">DLC Asso</Link>
       </div>
     </div>
   );
