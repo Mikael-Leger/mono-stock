@@ -20,13 +20,6 @@ export default function SwitchText(props) {
     }
   }, [props.product]);
 
-  // useEffect(() => {
-  //   console.log(props.product);
-  //   if (props.value) {
-  //     setValue(props.product.amount);
-  //   }
-  // }, [props.value, props.product]);
-
   const switchActivation = () => {
     setRefill(!refill.on);
     props.saveRefillToLocal(!refill.on);

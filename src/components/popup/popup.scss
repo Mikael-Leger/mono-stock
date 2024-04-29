@@ -1,0 +1,32 @@
+.popup {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(173, 216, 230, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  &-box {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+
+    &-container {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      gap: 25px;
+      background-color: rgb(35, 51, 51);
+      width: 75vw;
+      height: 15vh;
+
+      &-actions {
+        display: flex;
+        justify-content: space-evenly;
+      }
+    }
+  }
+}

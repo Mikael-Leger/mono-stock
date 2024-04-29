@@ -4,29 +4,18 @@ import ProductItem from "../product-item/product-item";
 
 import "./products-list.scss";
 import Button from "../button/button";
+import Popup from "../popup/popup";
 
 export default function ProductsList() {
   const [productsList, setProductsList] = useState([]);
-  const [isPopUpVisible, setPopUpVisible] = useState({visible: false, id: null});
-  const refPopUp = useRef(null);
   const router = useRouter();
-
+  const popupRef = useRef();
+  
   useEffect(() => {
     const storedProducts = JSON.parse(localStorage.getItem("products"));
     if (storedProducts) {
       setProductsList(storedProducts);
     }
-    const handleClickOutside = (event) => {
-      if (refPopUp.current && !refPopUp.current.contains(event.target)) {
-        setPopUpVisible({visible: false, id: null});
-      }
-    };
-
-    document.addEventListener('click', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
   }, []);
 
   const showProductsList = () => {
@@ -47,27 +36,12 @@ export default function ProductsList() {
 
   const deleteProduct = (event, id) => {
     event.preventDefault();
-    setPopUpVisible({visible: true, id});
+    popupRef.current.openPopup(id);
     event.stopPropagation();
   }
 
-  const removeProductFromStorage = () => {
-    const storedProducts = JSON.parse(localStorage.getItem("products"));
-    const productFoundIndex = storedProducts.findIndex(product => product.id === isPopUpVisible.id);
-    const newProductsList = storedProducts;
-    newProductsList.splice(productFoundIndex, 1);
-    const newproductsListString = JSON.stringify(newProductsList);
-    localStorage.setItem("products", newproductsListString);
+  const onDelete = (newProductsList) => {
     setProductsList(newProductsList);
-  }
-
-  const popUpYes = () => {
-    removeProductFromStorage();
-    setPopUpVisible({visible: false, id: null});
-  }
-
-  const popUpNo = () => {
-    setPopUpVisible({visible: false, id: null});
   }
 
   return (
@@ -78,17 +52,7 @@ export default function ProductsList() {
       <div className="products-list-container">
         { showProductsList() }
       </div>
-      <div className={"delete-confirmation" + ((!isPopUpVisible.visible) ? " hidden" : "")}>
-        <div className="delete-confirmation-box">
-          <div className="delete-confirmation-box-container" ref={refPopUp}>
-            <div>Delete this product?</div>
-            <div className="delete-confirmation-box-container-actions">
-              <Button value="Yes" outlined color="danger" size="medium" onClick={popUpYes} />
-              <Button value="No" outlined color="white" size="medium" onClick={popUpNo} />
-            </div>
-          </div>
-        </div>
-      </div>
+      <Popup onDelete={onDelete} ref={popupRef} />
     </div>
   );
 }
