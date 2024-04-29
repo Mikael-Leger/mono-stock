@@ -36,12 +36,11 @@ export default function ProductsList() {
   const addProduct = () => {
     const storedProducts = JSON.parse(localStorage.getItem("products"));
     let newId = "0001";
-    
-    if (storedProducts) {
+    if (storedProducts.length > 0) {
       storedProducts.sort((a, b) => a.id - b.id);
       const lastId = parseInt(storedProducts[storedProducts.length - 1].id);
       newId = (lastId + 1).toString().padStart(4, '0');
-
+      
     }
     router.push("/products/" + newId);
   }
