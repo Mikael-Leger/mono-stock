@@ -33,7 +33,8 @@ export default function Product(props) {
   return (
     <div className="product">
       <div className="product-photo">
-        <PhotoEdit src={props.product && props.product.photo}
+        <PhotoEdit
+          src={props.product && props.product.photo}
           saveToLocal={(v) => saveToLocal(v, "photo")} />
       </div>
       <div className="product-name">
@@ -59,7 +60,6 @@ export default function Product(props) {
       <div className="product-refill">
         <SwitchText
           product={props.product}
-          value={props.product && props.product.amount || 0}
           saveAmountToLocal={(v) => saveToLocal(v, "amount")} 
           saveRefillToLocal={(v) => saveToLocal(v, "refill")} />
       </div>

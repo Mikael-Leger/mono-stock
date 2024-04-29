@@ -24,13 +24,13 @@ export default function ProductItem(props) {
       </div>
       <div className="product-item-text">
         <div className="product-item-text-name">
-          { props.product.name }
+          { props.product.name || " " }
         </div>
         <div className="product-item-text-barcode">
-          { props.product.barcode || "XXXX XXXX XXXX" }
+          { props.product.barcode || " " }
         </div>
         <div className="product-item-text-barcode">
-          { props.product.quantity || "??" }
+          { props.product.quantity || " " }
         </div>
       </div>
       <div className="product-item-actions">

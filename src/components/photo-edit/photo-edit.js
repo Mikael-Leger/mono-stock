@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from "next/image";
 
 import { FaRegFileImage } from "react-icons/fa";
@@ -7,6 +7,10 @@ import "./photo-edit.scss";
 export default function PhotoEdit(props) {
   const inputRef = useRef(null);
   const [photoURL, setPhotoURL] = useState(props.src);
+
+  useEffect(() => {
+    setPhotoURL(props.src);
+  }, [props.src]);
 
   const handleUpload = (event) => {
     const file = event.target.files[0];

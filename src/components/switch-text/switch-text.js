@@ -5,24 +5,31 @@ import Button from "../button/button";
 import "./switch-text.scss"
 
 export default function SwitchText(props) {
-  const [activated, setActivated] = useState((props.product) ? props.product.refill : false);
+  const [refill, setRefill] = useState({on: false});
   const inputRef = useRef(null);
 
   useEffect(() => {
-    if (activated && inputRef.current) {
+    if (refill && inputRef.current) {
       inputRef.current.focus();
     }
-  }, [activated]);
+  }, [refill]);
 
   useEffect(() => {
     if (props.product) {
-      setActivated(props.product.refill);
+      setRefill({on: props.product.refill, amount: props.product.amount || 0});
     }
   }, [props.product]);
 
+  // useEffect(() => {
+  //   console.log(props.product);
+  //   if (props.value) {
+  //     setValue(props.product.amount);
+  //   }
+  // }, [props.value, props.product]);
+
   const switchActivation = () => {
-    setActivated(!activated);
-    props.saveRefillToLocal(!activated);
+    setRefill(!refill.on);
+    props.saveRefillToLocal(!refill.on);
   }
 
   const saveEdit = () => {
@@ -30,13 +37,17 @@ export default function SwitchText(props) {
     props.saveAmountToLocal(value);
   }
 
+  if (!props.product) {
+    return <></>;
+  }
+
   return (
-    <div className={"switch-text" + ((activated) ? " switch-on" : " switch-off")}>
+    <div className={"switch-text" + ((refill.on) ? " switch-on" : " switch-off")}>
       <div className="switch-text-button">
         <button type="submit" onClick={switchActivation}><FaCircle className="icon-small" /></button>
       </div>
       <div className="switch-text-input">
-        <input type="number" defaultValue={props.value} disabled={!activated} ref={inputRef} />
+        <input type="number" defaultValue={refill.amount} disabled={!refill.on} ref={inputRef} />
         <Button bgColor="info" onClick={saveEdit} icon={<FaRegSave className='icon-small' />} />
       </div>
     </div>
