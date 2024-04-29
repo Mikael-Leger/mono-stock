@@ -34,7 +34,7 @@ export default function ProductsList() {
   }
 
   const addProduct = () => {
-    const storedProducts = JSON.parse(localStorage.getItem("products"));
+    const storedProducts = JSON.parse(localStorage.getItem("products")) || [];
     storedProducts.sort((a, b) => a.id - b.id);
     const lastId = parseInt(storedProducts[storedProducts.length - 1].id);
     const newId = (lastId + 1).toString().padStart(4, '0');
