@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && npx workbox generateSW workbox-config.js",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -19,7 +19,6 @@
   },
   "devDependencies": {
     "eslint": "^8",
-    "eslint-config-next": "14.2.3",
-    "workbox-cli": "^7.1.0"
+    "eslint-config-next": "14.2.3"
   }
 }

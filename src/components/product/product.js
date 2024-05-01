@@ -14,6 +14,12 @@ export default function Product(props) {
   const { id } = router.query;
   const popupRef = useRef();
 
+  useEffect(() => {
+    if (props.product) {
+      setProduct(props.product);
+    }
+  }, [props.product]);
+
   const saveToLocal = (value, type) => {
     const storedProducts = JSON.parse(localStorage.getItem("products"));
     const productFound = storedProducts.find(p => p.id === id);

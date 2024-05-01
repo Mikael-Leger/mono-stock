@@ -21,7 +21,7 @@ export default function SwitchText(props) {
   }, [props.product]);
 
   const switchActivation = () => {
-    setRefill(!refill.on);
+    setRefill({ on: !refill.on, amount: props.product.amount });
     props.saveRefillToLocal(!refill.on);
   }
 
@@ -30,7 +30,7 @@ export default function SwitchText(props) {
     props.saveAmountToLocal(value);
   }
 
-  if (!props.product) {
+  if (!refill) {
     return <></>;
   }
 
