@@ -8,16 +8,27 @@
     font-size: 1.2em;
   }
 
+  &.text-edit-type-name {
+    .input input[type="text"] {
+      padding: 15px;
+    }
+    .button button {
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+  }
+
   &-placeholder {
     color: var(--color-placeholder);
   }
 
   .input {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 
     input[type="text"] {
-      padding: 7px;
+      width: 100%;
+      padding: 9px;
       background-color: var(--color-input);
       color: var(--color-black);
     }

@@ -23,6 +23,10 @@
       width: 75vw;
       height: 15vh;
 
+      &-title {
+        font-size: 1.3em;
+      }
+
       &-actions {
         display: flex;
         justify-content: space-evenly;

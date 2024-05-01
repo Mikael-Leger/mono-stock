@@ -29,14 +29,8 @@ const Popup = forwardRef((props, ref) => {
   }, []);
 
   const popUpYes = () => {
-    const storedProducts = JSON.parse(localStorage.getItem("products"));
-    const productFoundIndex = storedProducts.findIndex(product => product.id === isPopUpVisible.id);
-    const newProductsList = storedProducts;
-    newProductsList.splice(productFoundIndex, 1);
-    const newproductsListString = JSON.stringify(newProductsList);
-    localStorage.setItem("products", newproductsListString);
-    props.onDelete(newProductsList);
     setPopUpVisible({visible: false, id: null});
+    props.onYes(isPopUpVisible.id);
   }
 
   const popUpNo = () => {
@@ -47,7 +41,7 @@ const Popup = forwardRef((props, ref) => {
     <div className={"popup" + ((!isPopUpVisible.visible) ? " hidden" : "")}>
       <div className="popup-box">
         <div className="popup-box-container" ref={refPopUp}>
-          <div>Delete this product?</div>
+          <div className="popup-box-container-title">{ props.title }</div>
           <div className="popup-box-container-actions">
             <Button value="Yes" outlined color="danger" size="medium" onClick={popUpYes} />
             <Button value="No" outlined color="white" size="medium" onClick={popUpNo} />

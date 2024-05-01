@@ -1,12 +1,16 @@
 import { useEffect, useRef, useState } from "react";
-import { FaCircle, FaRegSave } from "react-icons/fa";
+import { FaCheck, FaCircle, FaRegSave } from "react-icons/fa";
 import Button from "../button/button";
 
 import "./switch-text.scss"
+import Popup from "../popup/popup";
+import { useRouter } from "next/router";
 
 export default function SwitchText(props) {
   const [refill, setRefill] = useState({on: false});
+  const router = useRouter();
   const inputRef = useRef(null);
+  const popupRef = useRef();
 
   useEffect(() => {
     if (refill && inputRef.current) {
@@ -21,13 +25,31 @@ export default function SwitchText(props) {
   }, [props.product]);
 
   const switchActivation = () => {
-    setRefill({ on: !refill.on, amount: props.product.amount });
-    props.saveRefillToLocal(!refill.on);
+    if (props.product) {
+      setRefill({ on: !refill.on, amount: props.product.amount });
+      props.saveRefillToLocal(!refill.on);
+    }
   }
 
   const saveEdit = () => {
     const { value } = inputRef.current;
     props.saveAmountToLocal(value);
+  }
+
+  const submitRefill = (event, id) => {
+    event.preventDefault();
+    popupRef.current.openPopup(id);
+    event.stopPropagation();
+  }
+
+  const confirmSubmit = () => {
+    setRefill({ on: false, amount: 0 });
+    props.saveRefillToLocal(false);
+    props.saveAmountToLocal(0);
+    if (props.product.quantity) {
+      let resQuantity = Math.max(props.product.quantity - refill.amount, 0);
+      props.saveQuantityToLocal(resQuantity);
+    }
   }
 
   if (!refill) {
@@ -40,9 +62,13 @@ export default function SwitchText(props) {
         <button type="submit" onClick={switchActivation}><FaCircle className="icon-small" /></button>
       </div>
       <div className="switch-text-input">
-        <input type="number" defaultValue={refill.amount} disabled={!refill.on} ref={inputRef} />
-        <Button bgColor="info" onClick={saveEdit} icon={<FaRegSave className='icon-small' />} />
+        <input type="number" value={refill.amount} onChange={(e) => setRefill({on: refill.on, amount: e.target.value})} disabled={!refill.on} ref={inputRef} />
+        <Button bgColor="info" onClick={saveEdit} icon={<FaRegSave className='icon-small' />} side="right" />
       </div>
+      <div className="switch-text-submit">
+        <Button bgColor="success" onClick={(e) => submitRefill(e, router.query.id)} value="Submit" icon={<FaCheck className='icon-small' />} />
+      </div>
+      <Popup title="Submit the refill?" onYes={confirmSubmit} ref={popupRef} />
     </div>
   );
 }

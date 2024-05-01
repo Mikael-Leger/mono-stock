@@ -1,8 +1,30 @@
 .button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    padding: 6px;
+    font-weight: 800;
     border: 0;
-    padding: 3px;
     color: black;
+    text-transform: uppercase;
+    border: var(--border-default);
+    border-radius: var(--border-radius);
+  }
+
+  &.side {
+    &-right button {
+      border-radius: var(--border-radius-right);
+    }
+
+    &-left button {
+      border-radius: var(--border-radius-left);
+    }
   }
 
   &.circle button {
@@ -29,6 +51,14 @@
 
     &-info button {
       background-color: var(--color-info);
+    }
+
+    &-success button {
+      background-color: var(--color-success);
+    }
+
+    &-danger button {
+      background-color: var(--color-danger);
     }
   }
 

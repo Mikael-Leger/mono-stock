@@ -40,7 +40,13 @@ export default function ProductsList() {
     event.stopPropagation();
   }
 
-  const onDelete = (newProductsList) => {
+  const onDelete = (id) => {
+    const storedProducts = JSON.parse(localStorage.getItem("products"));
+    const productFoundIndex = storedProducts.findIndex(product => product.id === id);
+    const newProductsList = storedProducts;
+    newProductsList.splice(productFoundIndex, 1);
+    const newproductsListString = JSON.stringify(newProductsList);
+    localStorage.setItem("products", newproductsListString);
     setProductsList(newProductsList);
   }
 
@@ -52,7 +58,7 @@ export default function ProductsList() {
       <div className="products-list-container">
         { showProductsList() }
       </div>
-      <Popup onDelete={onDelete} ref={popupRef} />
+      <Popup title="Delete this product?" onYes={onDelete} ref={popupRef} />
     </div>
   );
 }

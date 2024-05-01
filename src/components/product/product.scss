@@ -7,17 +7,40 @@
   text-align: center;
   width: 100%;
 
-  &-name {
+  &-name, &-barcode, &-quantity {
     width: 100%;
 
+    .text-edit-title, .input input, .input button {
+      border: var(--border-default);
+    }
+
+    .text-edit-title {
+      border-radius: var(--border-radius);
+    }
+    
+    .input input {
+      border-width: var(--border-width-left);
+      border-radius: var(--border-radius-left);
+    }
+    
+    .input .button button {
+      border: 0px;
+      border-radius: 0;
+    }
+    
+    .input .button:last-child button {
+      border-width: var(--border-width-right);
+      border-radius: var(--border-radius-right);
+    }
+  }
+
+  &-name {
     .text-edit-title {
       height: 50px;
     }
   }
 
   &-barcode, &-quantity, &-refill {
-    width: 100%;
-
     .text-edit-title {
       height: 30px;
     }

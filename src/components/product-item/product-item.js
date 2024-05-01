@@ -10,27 +10,40 @@ export default function ProductItem(props) {
     router.push('/products/' + props.product.id);
   }
 
-  const showProductPhoto = () => {
+  const showPhoto = () => {
     if (props.product.photo) {
       return <Image src={props.product.photo} width={70} height={70} alt="Product photo" />;
     }
     return <div className="photo-empty"><FaRegFileImage className="icon-medium" /></div>;
   }
 
+  const showName = () => {
+    return ((props.product.name) ? props.product.name : "---------------------------");
+  }
+
+  const showBarcode = () => {
+    return ((props.product.barcode !== undefined) ? props.product.barcode : "XXXX XXXX XXXX");
+  }
+
+  const showQuantity = () => {
+    return "Quantity: " + ((props.product.quantity !== undefined) ? props.product.quantity : "0");
+  }
+
+
   return (
     <div className="product-item" onClick={goToProduct}>
       <div className="product-item-photo">
-        { showProductPhoto() }
+        { showPhoto() }
       </div>
       <div className="product-item-text">
         <div className="product-item-text-name">
-          { props.product.name || " " }
+          { showName() }
         </div>
         <div className="product-item-text-barcode">
-          { props.product.barcode || " " }
+          { showBarcode() }
         </div>
-        <div className="product-item-text-barcode">
-          { props.product.quantity || " " }
+        <div className="product-item-text-quantity">
+          { showQuantity() }
         </div>
       </div>
       <div className="product-item-actions">

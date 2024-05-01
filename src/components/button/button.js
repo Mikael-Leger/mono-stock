@@ -7,7 +7,8 @@ export default function Button(props) {
       + ((props.bgColor) ? " bgColor-" + props.bgColor : "")
       + ((props.circle) ? " circle" : "")
       + ((props.outlined) ? " outlined" : "")
-      + ((props.size) ? " size-" + props.size : "")}>
+      + ((props.size) ? " size-" + props.size : "")
+      + ((props.side) ? " side-" + props.side : "")}>
       <button onClick={props.onClick}>
         { props.icon } { props.value }
       </button>
