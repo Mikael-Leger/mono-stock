@@ -8,18 +8,17 @@
     display: flex;
     justify-content: center;
     
-   > a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--color-black);
-      background-color: var(--color-primary);
-      width: 20vw;
-      height: 6vh;
-      padding: 15px;
-      font-size: 1.3em;
-      font-weight: 800;
-      text-align: center;
-    }
+   .button {
+      width: 100%;
+
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-black);
+        background-color: var(--color-primary);
+        width: 80%;
+      }
+   }
   }
 }
