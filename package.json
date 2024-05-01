@@ -8,6 +8,13 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "dist" }
+    }
+  ],
   "dependencies": {
     "next": "14.2.3",
     "node": "^22.0.0",
