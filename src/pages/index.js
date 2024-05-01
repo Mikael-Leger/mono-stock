@@ -8,7 +8,7 @@ const title = "MONO'STOCK";
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
-    const swPath  = "/static/chunks/service-worker.js";
+    const swPath  = "/static/service-worker.js";
     navigator.serviceWorker.register(swPath).then(function(registration) {
       console.log("ServiceWorker registration successful with scope: ", registration.scope);
     }, function(err) {
