@@ -1,6 +1,6 @@
 module.exports = {
   "globDirectory": ".next/",
-  "swDest": ".next/service-worker.js",
+  "swDest": ".next/static/service-worker.js",
   "clientsClaim": true,
   "skipWaiting": true,
   "runtimeCaching": [
