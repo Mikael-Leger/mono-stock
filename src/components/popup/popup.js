@@ -28,13 +28,16 @@ const Popup = forwardRef((props, ref) => {
     };
   }, []);
 
-  const popUpYes = () => {
+  const popUpLeftOption = () => {
     setPopUpVisible({visible: false, id: null});
-    props.onYes(isPopUpVisible.id);
+    props.onLeftOption(isPopUpVisible.id);
   }
 
-  const popUpNo = () => {
+  const popUpRightOption = () => {
     setPopUpVisible({visible: false, id: null});
+    if (props.onRightOption) {
+      props.onRightOption(isPopUpVisible.id);
+    }
   }
 
   return (
@@ -43,8 +46,8 @@ const Popup = forwardRef((props, ref) => {
         <div className="popup-box-container" ref={refPopUp}>
           <div className="popup-box-container-title">{ props.title }</div>
           <div className="popup-box-container-actions">
-            <Button value="Yes" outlined color="danger" size="medium" onClick={popUpYes} />
-            <Button value="No" outlined color="white" size="medium" onClick={popUpNo} />
+            <Button value={(props.confirm) ? "Yes" : props.leftValue} outlined color={(props.confirm) ? "danger" : "white"} size="medium" onClick={popUpLeftOption} />
+            <Button value={(props.confirm) ? "No" : props.rightValue} outlined color="white" size="medium" onClick={popUpRightOption} />
           </div>
         </div>
       </div>

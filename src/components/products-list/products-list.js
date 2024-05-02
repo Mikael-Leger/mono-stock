@@ -59,7 +59,7 @@ export default function ProductsList() {
       <div className="products-list-container">
         { showProductsList() }
       </div>
-      <Popup title="Delete this product?" onYes={onDelete} ref={popupRef} />
+      <Popup title="Delete this product?" onLeftOption={onDelete} confirm ref={popupRef} />
     </div>
   );
 }

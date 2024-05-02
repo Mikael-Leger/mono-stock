@@ -1,5 +1,5 @@
 :root {
-  --color-white: rgb(255, 255, 255);
+  --color-white: rgb(238, 235, 240);
   --color-black: rgb(0, 0, 0);
   --color-primary: lightblue;
   --color-secondary: lightgreen;
@@ -11,6 +11,8 @@
   --color-locked: rgb(107, 114, 116);
   --color-input: rgb(204, 215, 218);
   --color-placeholder: rgb(129, 133, 134);
+  --color-transparency: rgb(129, 133, 134, 0.5);
+  --color-popup: rgb(33 15 51);
 
   --background-edge-rgb: rgb(73, 11, 131);
   --background-middle-rgb: rgb(39, 8, 68);

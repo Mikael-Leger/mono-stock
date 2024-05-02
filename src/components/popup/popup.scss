@@ -3,7 +3,7 @@
   justify-content: center;
   width: 100vw;
   height: 100vh;
-  background-color: rgb(173, 216, 230, 0.5);
+  background-color: var(--color-transparency);
   position: fixed;
   top: 0;
   left: 0;
@@ -19,12 +19,14 @@
       justify-content: center;
       flex-direction: column;
       gap: 25px;
-      background-color: rgb(35, 51, 51);
+      background-color: var(--color-popup);
       width: 75vw;
       height: 15vh;
 
       &-title {
         font-size: 1.3em;
+        font-weight: 800;
+        color: var(--color-white);
       }
 
       &-actions {

@@ -5,28 +5,11 @@ import { FaRegFileImage } from "react-icons/fa";
 import "./photo-edit.scss";
 
 export default function PhotoEdit(props) {
-  const inputRef = useRef(null);
   const [photoURL, setPhotoURL] = useState(props.src);
 
   useEffect(() => {
     setPhotoURL(props.src);
   }, [props.src]);
-
-  const handleUpload = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        updatePhoto(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const updatePhoto = (value) => {
-    props.saveToLocal(value);
-    setPhotoURL(value);
-  }
 
   const showPhoto = () => {
     if (photoURL) {
@@ -37,15 +20,7 @@ export default function PhotoEdit(props) {
 
   return (
     <div className="photo-edit">
-      <input
-        type="file"
-        accept="image/*"
-        capture="environment" // To specify using the device's camera
-        ref={inputRef}
-        style={{ display: 'none' }}
-        onChange={handleUpload}
-      />
-      <div className='photo-edit-container' onClick={() => inputRef.current.click()}>
+      <div className='photo-edit-container' onClick={props.onClick}>
       { showPhoto() }
       </div>
     </div>

@@ -12,7 +12,10 @@ import "./product.scss";
 export default function Product() {
   const contextPage = useContext(PageContext);
   const [product, setProduct] = useState(contextPage.item);
-  const popupRef = useRef();
+  const popupRefPhoto = useRef();
+  const popupRefDelete = useRef();
+  const inputCameraRef = useRef();
+  const inputPhotoRef = useRef();
 
   const saveToLocal = (value, type) => {
     const storedProducts = JSON.parse(localStorage.getItem("products"));
@@ -38,7 +41,7 @@ export default function Product() {
 
   const deleteProduct = (event) => {
     event.preventDefault();
-    popupRef.current.openPopup(contextPage.item.id);
+    popupRefDelete.current.openPopup(contextPage.item.id);
     event.stopPropagation();
   }
 
@@ -54,12 +57,49 @@ export default function Product() {
     contextPage.updatePage("products");
   }
 
+  const onPhotoClick = (event) => {
+    event.preventDefault();
+    popupRefPhoto.current.openPopup(contextPage.item.id);
+    event.stopPropagation();
+  }
+
+  const useCamera = () => {
+    inputCameraRef.current.click();
+  }
+
+  const useFiles = () => {
+    inputPhotoRef.current.click();
+  }
+
+  const handleUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        saveToLocal(reader.result, "photo");
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        saveToLocal(reader.result, "photo");
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div className="product">
       <div className="product-photo">
         <PhotoEdit
           src={product && product.photo}
-          saveToLocal={(v) => saveToLocal(v, "photo")} />
+          saveToLocal={(v) => saveToLocal(v, "photo")}
+          onClick={onPhotoClick} />
       </div>
       <div className="product-name">
         <TextEdit
@@ -99,7 +139,23 @@ export default function Product() {
           onClick={(e) => {deleteProduct(e)}}
           icon={<FaRegTrashAlt className="icon-small"/>} />
       </div>
-      <Popup title="Delete this product?" onYes={onDelete} ref={popupRef} />
+      <Popup title="Delete this product?" onLeftOption={onDelete} confirm ref={popupRefDelete} />
+      <Popup title="How to proceed?" leftValue="Camera" rightValue="Files" onLeftOption={useCamera} onRightOption={useFiles} ref={popupRefPhoto} />
+      <input
+        type="file"
+        accept="image/*"
+        capture="environment"
+        style={{ display: 'none' }}
+        onChange={handleUpload}
+        ref={inputCameraRef}
+      />
+      <input
+        type="file"
+        accept="image/*"
+        style={{ display: 'none' }}
+        onChange={handleImageChange}
+        ref={inputPhotoRef}
+      />
     </div>
   );
 }
