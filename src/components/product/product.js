@@ -45,10 +45,12 @@ export default function Product() {
   const onDelete = (id) => {
     const storedProducts = JSON.parse(localStorage.getItem("products"));
     const productFoundIndex = storedProducts.findIndex(product => product.id === id);
-    const newProductsList = storedProducts;
-    newProductsList.splice(productFoundIndex, 1);
-    const newproductsListString = JSON.stringify(newProductsList);
-    localStorage.setItem("products", newproductsListString);
+    if (productFoundIndex > -1) {
+      const newProductsList = storedProducts;
+      newProductsList.splice(productFoundIndex, 1);
+      const newproductsListString = JSON.stringify(newProductsList);
+      localStorage.setItem("products", newproductsListString);
+    }
     contextPage.updatePage("products");
   }
 
