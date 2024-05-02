@@ -1,15 +1,15 @@
-import { useEffect, useRef, useState } from "react";
-import { useRouter } from 'next/router';
+import { useContext, useEffect, useRef, useState } from "react";
 import ProductItem from "../product-item/product-item";
-
-import "./products-list.scss";
 import Button from "../button/button";
 import Popup from "../popup/popup";
+import PageContext from "@/contexts/page-context";
+
+import "./products-list.scss";
 
 export default function ProductsList() {
   const [productsList, setProductsList] = useState([]);
-  const router = useRouter();
   const popupRef = useRef();
+  const contextPage = useContext(PageContext);
   
   useEffect(() => {
     const storedProducts = JSON.parse(localStorage.getItem("products"));
@@ -31,7 +31,8 @@ export default function ProductsList() {
       newId = (lastId + 1).toString().padStart(4, '0');
       
     }
-    router.push("/products/" + newId);
+    const newProduct = { id: newId };
+    contextPage.updatePage("product", newProduct);
   }
 
   const deleteProduct = (event, id) => {

@@ -1,21 +1,19 @@
-import Button from "../button/button";
-import { useRouter } from 'next/router';
+import React, { useContext } from "react";
 import { FaAngleLeft } from "react-icons/fa";
-import "./back-button.scss"
+import PageContext from "@/contexts/page-context";
+import Button from "../button/button";
 
-export default function BackButton(props) {
-  const router = useRouter();
+import "./back-button.scss";
 
-  if (router.asPath === "/") {
+export default function BackButton() {
+  const contextPage = useContext(PageContext);
+
+  if (contextPage.lastPages.length === 1) {
     return <></>;
   }
 
   const goBack = () => {
-    const fullUrl = router.asPath;
-    const pathArr = fullUrl.split('/');
-    pathArr.pop();
-    const newUrl = pathArr.join('/');
-    router.push(newUrl || '/');
+    contextPage.updatePage(contextPage.lastPages[contextPage.lastPages.length - 2]);
   }
 
   return (

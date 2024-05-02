@@ -1,19 +1,29 @@
-import Link from "next/link";
+import Button from "../button/button";
+import PageContext from "@/contexts/page-context";
+import { useContext } from "react";
 
 import "./menu.scss";
-import Button from "../button/button";
 
 export default function Menu() {
+  const contextPage = useContext(PageContext);
+
+  const changePage = (name) => {
+    contextPage.updatePage(name);
+  }
+
   return (
     <div className="menu">
       <div className="menu-item">
-        <Button bgColor="primary" size="big" value={<Link href="/products">Products</Link>} />
+        <Button bgColor="primary" size="medium" value="Products" onClick={() => changePage("products")} />
       </div>
       <div className="menu-item">
-        <Button bgColor="primary" size="big" value={<Link href="/data">Data</Link>} />
+        <Button bgColor="primary" size="medium" value="Data" onClick={() => changePage("data")} />
       </div>
       <div className="menu-item">
-        <Button bgColor="primary" size="big" value={<Link href="/">DLC Asso</Link>} />
+        <Button bgColor="primary" size="medium" value="Stickers" onClick={() => {/*changePage("home")*/}} />
+      </div>
+      <div className="menu-item">
+        <Button bgColor="primary" size="medium" value="Labels" onClick={() => {/*changePage("home")*/}} />
       </div>
     </div>
   );

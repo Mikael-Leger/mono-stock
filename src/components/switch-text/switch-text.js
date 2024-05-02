@@ -1,14 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { FaCheck, FaCircle, FaRegSave } from "react-icons/fa";
 import Button from "../button/button";
 
 import "./switch-text.scss"
 import Popup from "../popup/popup";
-import { useRouter } from "next/router";
+import PageContext from "@/contexts/page-context";
 
 export default function SwitchText(props) {
+  const contextPage = useContext(PageContext);
   const [refill, setRefill] = useState({on: false});
-  const router = useRouter();
   const inputRef = useRef(null);
   const popupRef = useRef();
 
@@ -36,9 +36,9 @@ export default function SwitchText(props) {
     props.saveAmountToLocal(value);
   }
 
-  const submitRefill = (event, id) => {
+  const submitRefill = (event) => {
     event.preventDefault();
-    popupRef.current.openPopup(id);
+    popupRef.current.openPopup(contextPage.item.id);
     event.stopPropagation();
   }
 
@@ -66,7 +66,7 @@ export default function SwitchText(props) {
         <Button bgColor="info" onClick={saveEdit} icon={<FaRegSave className='icon-small' />} side="right" />
       </div>
       <div className="switch-text-submit">
-        <Button bgColor="success" onClick={(e) => submitRefill(e, router.query.id)} value="Submit" icon={<FaCheck className='icon-small' />} />
+        <Button bgColor="success" onClick={(e) => submitRefill(e)} value="Submit" icon={<FaCheck className='icon-small' />} />
       </div>
       <Popup title="Submit the refill?" onYes={confirmSubmit} ref={popupRef} />
     </div>

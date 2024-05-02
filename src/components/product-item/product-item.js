@@ -1,13 +1,14 @@
-import { useState, useEffect } from "react";
-import { useRouter } from 'next/router';
+import { useState, useEffect, useContext } from "react";
 import "./product-item.scss"
 import Image from "next/image";
 import { FaRegFileImage, FaRegTrashAlt } from "react-icons/fa";
+import PageContext from "@/contexts/page-context";
 
 export default function ProductItem(props) {
-  const router = useRouter();
+  const contextPage = useContext(PageContext);
+
   const goToProduct = () => {
-    router.push('/products/' + props.product.id);
+    contextPage.updatePage("product", props.product);
   }
 
   const showPhoto = () => {

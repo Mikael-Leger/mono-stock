@@ -1,34 +1,27 @@
-import { useRouter } from 'next/router';
-
+import { FaRegTrashAlt } from 'react-icons/fa';
+import { useContext, useEffect, useRef, useState } from 'react';
 import PhotoEdit from "../photo-edit/photo-edit";
 import TextEdit from "../text-edit/text-edit";
-import "./product.scss"
 import SwitchText from '../switch-text/switch-text';
-import { FaRegTrashAlt } from 'react-icons/fa';
-import { useEffect, useRef, useState } from 'react';
 import Popup from '../popup/popup';
 import Button from '../button/button';
+import PageContext from '@/contexts/page-context';
 
-export default function Product(props) {
-  const [product, setProduct] = useState(props.product);
-  const router = useRouter();
-  const { id } = router.query;
+import "./product.scss";
+
+export default function Product() {
+  const contextPage = useContext(PageContext);
+  const [product, setProduct] = useState(contextPage.item);
   const popupRef = useRef();
-
-  useEffect(() => {
-    if (props.product) {
-      setProduct(props.product);
-    }
-  }, [props.product]);
 
   const saveToLocal = (value, type) => {
     const storedProducts = JSON.parse(localStorage.getItem("products"));
-    const productFound = storedProducts.find(p => p.id === id);
-    const productFoundIndex = storedProducts.findIndex(p => p.id === id);
+    const productFound = storedProducts.find(p => p.id === contextPage.item.id);
+    const productFoundIndex = storedProducts.findIndex(p => p.id === contextPage.item.id);
     const newProductsList = storedProducts;
     
     if (productFoundIndex === -1) {
-      const newProduct = { id };
+      const newProduct = { id: contextPage.item.id };
       newProduct[`${type}`] = value;
       newProductsList.push(newProduct);
       setProduct(newProduct);
@@ -43,9 +36,9 @@ export default function Product(props) {
     localStorage.setItem("products", newproductsListString);
   }
 
-  const deleteProduct = (event, id) => {
+  const deleteProduct = (event) => {
     event.preventDefault();
-    popupRef.current.openPopup(id);
+    popupRef.current.openPopup(contextPage.item.id);
     event.stopPropagation();
   }
 
@@ -56,7 +49,7 @@ export default function Product(props) {
     newProductsList.splice(productFoundIndex, 1);
     const newproductsListString = JSON.stringify(newProductsList);
     localStorage.setItem("products", newproductsListString);
-    router.push("/products");
+    contextPage.updatePage("products");
   }
 
   return (
@@ -101,7 +94,7 @@ export default function Product(props) {
         <Button
           bgColor="danger"
           value="Delete"
-          onClick={(e) => deleteProduct(e, router.query.id)}
+          onClick={(e) => {deleteProduct(e)}}
           icon={<FaRegTrashAlt className="icon-small"/>} />
       </div>
       <Popup title="Delete this product?" onYes={onDelete} ref={popupRef} />
