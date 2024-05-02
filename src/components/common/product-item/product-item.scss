@@ -11,6 +11,12 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+
+    &-refill {
+      position: absolute;
+      right: 5px;
+      bottom: 2px;
+    }
   }
 
   &-actions {

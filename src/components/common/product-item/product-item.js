@@ -27,9 +27,12 @@ export default function ProductItem(props) {
   }
 
   const showQuantity = () => {
-    return "Quantity: " + ((props.product.quantity !== undefined) ? props.product.quantity : "0");
+    return "Quantity: " + ((props.product.quantity !== undefined && props.product.quantity !== "") ? props.product.quantity : "0");
   }
 
+  const showRefill = () => {
+    return (props.product.refill) ? "Refill: " + props.product.amount || "?" : "";
+  }
 
   return (
     <div className="product-item" onClick={goToProduct}>
@@ -45,6 +48,9 @@ export default function ProductItem(props) {
         </div>
         <div className="product-item-text-quantity">
           { showQuantity() }
+        </div>
+        <div className="product-item-text-refill">
+          { showRefill() }
         </div>
       </div>
       <div className="product-item-actions">

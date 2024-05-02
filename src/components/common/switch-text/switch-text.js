@@ -9,7 +9,7 @@ import PageContext from "@/contexts/page-context";
 export default function SwitchText(props) {
   const contextPage = useContext(PageContext);
   const [refill, setRefill] = useState({on: false});
-  const inputRef = useRef(null);
+  const inputRef = useRef();
   const popupRef = useRef();
 
   useEffect(() => {
@@ -66,9 +66,9 @@ export default function SwitchText(props) {
         <Button bgColor="info" onClick={saveEdit} icon={<FaRegSave className='icon-small' />} side="right" />
       </div>
       <div className="switch-text-submit">
-        <Button bgColor="success" onClick={(e) => submitRefill(e)} value="Submit" icon={<FaCheck className='icon-small' />} />
+        <Button bgColor="success" onClick={(e) => submitRefill(e)} value="Refill" icon={<FaCheck className='icon-small' />} />
       </div>
-      <Popup title="Submit the refill?" onYes={confirmSubmit} ref={popupRef} />
+      <Popup title="Submit the refill?" onLeftOption={confirmSubmit} confirm ref={popupRef} />
     </div>
   );
 }

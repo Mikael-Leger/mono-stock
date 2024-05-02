@@ -5,10 +5,12 @@ import Popup from "../../common/popup/popup";
 import PageContext from "@/contexts/page-context";
 
 import "./products.scss";
+import { FaCheck } from "react-icons/fa";
 
 export default function ProductsList() {
   const [productsList, setProductsList] = useState([]);
-  const popupRef = useRef();
+  const popupDeleteRef = useRef();
+  const popupRefillRef = useRef();
   const contextPage = useContext(PageContext);
   
   useEffect(() => {
@@ -37,7 +39,7 @@ export default function ProductsList() {
 
   const deleteProduct = (event, id) => {
     event.preventDefault();
-    popupRef.current.openPopup(id);
+    popupDeleteRef.current.openPopup(id);
     event.stopPropagation();
   }
 
@@ -51,6 +53,26 @@ export default function ProductsList() {
     setProductsList(newProductsList);
   }
 
+  const refillProducts = (event) => {
+    event.preventDefault();
+    popupRefillRef.current.openPopup();
+    event.stopPropagation();
+  }
+
+  const confirmSubmit = () => {
+    const storedProducts = JSON.parse(localStorage.getItem("products"));
+    const newProductsList = storedProducts;
+    newProductsList.forEach(product => {
+      if (product.refill) {
+        product.refill = false;
+        product.quantity = Math.max((product.quantity || 0) - product.amount, 0);
+      }
+    });
+    const newproductsListString = JSON.stringify(newProductsList);
+    localStorage.setItem("products", newproductsListString);
+    setProductsList(newProductsList);
+  }
+
   return (
     <div className="products">
       <div className="products-add">
@@ -59,7 +81,11 @@ export default function ProductsList() {
       <div className="products-container">
         { showProductsList() }
       </div>
-      <Popup title="Delete this product?" onLeftOption={onDelete} confirm ref={popupRef} />
+      <div className="products-refill">
+        <Button value="REFILL" onClick={refillProducts}  bgColor="success" size="medium" icon={<FaCheck className="icon-small"/>} />
+      </div>
+      <Popup title="Delete this product?" onLeftOption={onDelete} confirm ref={popupDeleteRef} />
+      <Popup title="Submit the refill?" onLeftOption={confirmSubmit} confirm ref={popupRefillRef} />
     </div>
   );
 }
