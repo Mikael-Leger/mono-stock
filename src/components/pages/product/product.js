@@ -1,10 +1,10 @@
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { useContext, useEffect, useRef, useState } from 'react';
-import PhotoEdit from "../photo-edit/photo-edit";
-import TextEdit from "../text-edit/text-edit";
-import SwitchText from '../switch-text/switch-text';
-import Popup from '../popup/popup';
-import Button from '../button/button';
+import PhotoEdit from "../../common/photo-edit/photo-edit";
+import TextEdit from "../../common/text-edit/text-edit";
+import SwitchText from '../../common/switch-text/switch-text';
+import Popup from '../../common/popup/popup';
+import Button from '../../common/button/button';
 import PageContext from '@/contexts/page-context';
 
 import "./product.scss";

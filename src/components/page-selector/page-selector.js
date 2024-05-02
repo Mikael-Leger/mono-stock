@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import BackButton from "../back-button/back-button";
-import Footer from "../footer/footer";
-import Header from "../header/header";
-import Home from "@/pages";
-import ProductsList from "../products-list/products-list";
-import Data from "@/pages/data";
-import Product from "../product/product";
+import BackButton from "../common/back-button/back-button";
+import Footer from "../layouts/footer/footer";
+import Header from "../layouts/header/header";
+import Home from "@/components/pages/home/home";
+import ProductsList from "../pages/products/products";
+import Data from "@/components/pages/data";
+import Product from "../pages/product/product";
 import PageContext from '../../contexts/page-context';
 
 export default function PageSelector() {

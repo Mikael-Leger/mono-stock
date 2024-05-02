@@ -1,15 +1,21 @@
-import Menu from "@/components/menu/menu";
-
-import '../app/globals.scss';
+import React, { useEffect } from 'react';
+import PageSelector from '@/components/page-selector/page-selector';
+import "../app/globals.scss";
 import "./index.scss";
 
-const TITLE = "MONO'STOCK";
+function MyApp() {
+  useEffect(() =>  {
+    const storedProducts = JSON.parse(localStorage.getItem("products"));
+    if (!storedProducts) {
+      localStorage.setItem("products", "[]");
+    }
+  }, [])
 
-export default function Home() {
   return (
-    <div className="home">
-      <div className="title">{ TITLE }</div>
-      <Menu />
+    <div className="main">
+      <PageSelector />
     </div>
   );
 }
+
+export default MyApp;

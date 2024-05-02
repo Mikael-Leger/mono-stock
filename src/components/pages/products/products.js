@@ -1,10 +1,10 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import ProductItem from "../product-item/product-item";
-import Button from "../button/button";
-import Popup from "../popup/popup";
+import ProductItem from "../../common/product-item/product-item";
+import Button from "../../common/button/button";
+import Popup from "../../common/popup/popup";
 import PageContext from "@/contexts/page-context";
 
-import "./products-list.scss";
+import "./products.scss";
 
 export default function ProductsList() {
   const [productsList, setProductsList] = useState([]);
@@ -52,11 +52,11 @@ export default function ProductsList() {
   }
 
   return (
-    <div className="products-list">
-      <div className="products-list-add">
+    <div className="products">
+      <div className="products-add">
         <Button value="ADD" onClick={addProduct} bgColor="primary" size="medium" />
       </div>
-      <div className="products-list-container">
+      <div className="products-container">
         { showProductsList() }
       </div>
       <Popup title="Delete this product?" onLeftOption={onDelete} confirm ref={popupRef} />

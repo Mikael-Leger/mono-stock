@@ -1,14 +1,19 @@
-.home {
+.main {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+}
+
+.page-container {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  width: 60vw;
+}
+
+.page {
   display: flex;
   flex-direction: column;
-  gap: 100px;
-
- .title {
-    text-align: center;
-    font-size: 2.5em;
-    font-weight: 800;
-    padding: 25px 5px;
-    border: var(--border-default);
-    background-color: var(--color-primary);
-  }
+  justify-content: center;
+  gap: 10vh;
 }
