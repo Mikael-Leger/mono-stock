@@ -1,24 +1,29 @@
 import { useContext, useEffect, useRef, useState } from "react";
+import { FaArrowsRotate } from "react-icons/fa6";
 import ProductItem from "../../common/product-item/product-item";
 import Button from "../../common/button/button";
 import Popup from "../../common/popup/popup";
 import PageContext from "@/contexts/page-context";
 
 import "./products.scss";
-import { FaCheck } from "react-icons/fa";
 
 export default function ProductsList() {
+  const contextPage = useContext(PageContext);
   const [productsList, setProductsList] = useState([]);
   const popupDeleteRef = useRef();
   const popupRefillRef = useRef();
-  const contextPage = useContext(PageContext);
   
   useEffect(() => {
+    const productsByTag = getProductsByTag();
+    setProductsList(productsByTag);
+  }, []);
+
+  const getProductsByTag = () => {
     const storedProducts = JSON.parse(localStorage.getItem("products"));
     if (storedProducts) {
-      setProductsList(storedProducts);
+      return storedProducts.filter(product => product.tag === contextPage.currentTag);
     }
-  }, []);
+  }
 
   const showProductsList = () => {
     return productsList.map(product => <ProductItem product={product} key={product.id} deleteProduct={deleteProduct} />);
@@ -48,8 +53,8 @@ export default function ProductsList() {
     const productFoundIndex = storedProducts.findIndex(product => product.id === id);
     const newProductsList = storedProducts;
     newProductsList.splice(productFoundIndex, 1);
-    const newproductsListString = JSON.stringify(newProductsList);
-    localStorage.setItem("products", newproductsListString);
+    const newProductsListString = JSON.stringify(newProductsList);
+    localStorage.setItem("products", newProductsListString);
     setProductsList(newProductsList);
   }
 
@@ -60,8 +65,8 @@ export default function ProductsList() {
   }
 
   const confirmSubmit = () => {
-    const storedProducts = JSON.parse(localStorage.getItem("products"));
-    const newProductsList = storedProducts;
+    const productsByTag = getProductsByTag();
+    const newProductsList = productsByTag;
     newProductsList.forEach(product => {
       if (product.refill) {
         product.refill = false;
@@ -70,19 +75,19 @@ export default function ProductsList() {
     });
     const newproductsListString = JSON.stringify(newProductsList);
     localStorage.setItem("products", newproductsListString);
-    setProductsList(newProductsList);
+    setProductsList(productsByTag);
   }
 
   return (
     <div className="products">
       <div className="products-add">
-        <Button value="ADD" onClick={addProduct} bgColor="primary" size="medium" />
+        <Button value="Add" onClick={addProduct} bgColor="primary" size="medium" />
       </div>
       <div className="products-container">
         { showProductsList() }
       </div>
       <div className="products-refill">
-        <Button value="REFILL" onClick={refillProducts}  bgColor="success" size="medium" icon={<FaCheck className="icon-small"/>} />
+        <Button value="Refill" onClick={refillProducts}  bgColor="success" size="medium" icon={<FaArrowsRotate className="icon-small"/>} />
       </div>
       <Popup title="Delete this product?" onLeftOption={onDelete} confirm ref={popupDeleteRef} />
       <Popup title="Submit the refill?" onLeftOption={confirmSubmit} confirm ref={popupRefillRef} />

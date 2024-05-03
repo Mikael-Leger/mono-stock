@@ -1,10 +1,11 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { FaCheck, FaCircle, FaRegSave } from "react-icons/fa";
+import { FaCircle, FaRegSave } from "react-icons/fa";
+import { FaArrowsRotate } from "react-icons/fa6";
 import Button from "../button/button";
-
-import "./switch-text.scss"
 import Popup from "../popup/popup";
 import PageContext from "@/contexts/page-context";
+
+import "./switch-text.scss";
 
 export default function SwitchText(props) {
   const contextPage = useContext(PageContext);
@@ -20,7 +21,7 @@ export default function SwitchText(props) {
 
   useEffect(() => {
     if (props.product) {
-      setRefill({on: props.product.refill, amount: props.product.amount || 0});
+      setRefill({on: props.product.refill, amount: props.product.amount});
     }
   }, [props.product]);
 
@@ -29,11 +30,6 @@ export default function SwitchText(props) {
       setRefill({ on: !refill.on, amount: props.product.amount });
       props.saveRefillToLocal(!refill.on);
     }
-  }
-
-  const saveEdit = () => {
-    const { value } = inputRef.current;
-    props.saveAmountToLocal(value);
   }
 
   const submitRefill = (event) => {
@@ -52,6 +48,11 @@ export default function SwitchText(props) {
     }
   }
 
+  const onRefillUpdate = (e) => {
+    setRefill({on: refill.on, amount: e.target.value});
+    props.saveAmountToLocal(e.target.value);
+  }
+
   if (!refill) {
     return <></>;
   }
@@ -62,11 +63,10 @@ export default function SwitchText(props) {
         <button type="submit" onClick={switchActivation}><FaCircle className="icon-small" /></button>
       </div>
       <div className="switch-text-input">
-        <input type="number" value={refill.amount} onChange={(e) => setRefill({on: refill.on, amount: e.target.value})} disabled={!refill.on} ref={inputRef} />
-        <Button bgColor="info" onClick={saveEdit} icon={<FaRegSave className='icon-small' />} side="right" />
+        <input type="number" value={refill.amount} onChange={(e) => onRefillUpdate(e)} disabled={!refill.on} ref={inputRef} />
       </div>
       <div className="switch-text-submit">
-        <Button bgColor="success" onClick={(e) => submitRefill(e)} value="Refill" icon={<FaCheck className='icon-small' />} />
+        <Button bgColor="success" onClick={(e) => submitRefill(e)} value="Refill" icon={<FaArrowsRotate className='icon-small' />} />
       </div>
       <Popup title="Submit the refill?" onLeftOption={confirmSubmit} confirm ref={popupRef} />
     </div>

@@ -31,7 +31,8 @@
       }
 
       .switch-text-input input {
-        background-color: var(--color-info);
+        height: 30px;
+        background-color: var(--color-tertiary);
       }
     }
   }
@@ -50,7 +51,7 @@
       color: var(--color-black);
       width: 14vw;
       text-align: center;
-      border-radius: var(--border-radius-left);
+      border-radius: var(--border-radius);
     }
   }
 }

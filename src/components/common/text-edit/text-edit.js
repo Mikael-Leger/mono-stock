@@ -13,13 +13,14 @@ export default function TextEdit(props) {
   useEffect(() => {
     if (isEditable && inputRef.current) {
       inputRef.current.focus();
-
     }
   }, [isEditable]);
 
   useEffect(() => {
-    setTitle(props.value);
-  }, [props.value]);
+    if (props.defaultEditable) {
+      setEditable(true);
+    }
+  }, []);
 
   const startEdit = () => {
     setEditable(true);
@@ -27,7 +28,7 @@ export default function TextEdit(props) {
 
   const saveEdit = () => {
     const { value } = inputRef.current;
-    props.saveToLocal(value);
+    props.onSave(value);
     setTitle(value)
     setEditable(false);
   }
@@ -35,6 +36,7 @@ export default function TextEdit(props) {
   const closeEdit = () => {
     setTitle(props.value);
     setEditable(false);
+    props.afterClose();
   }
 
   const showTitle = () => {
@@ -60,7 +62,7 @@ export default function TextEdit(props) {
       <div className={"input " + (!isEditable ? "hidden" : "")}>
         <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} ref={inputRef} />
         <Button onClick={saveEdit} icon={<FaRegSave className='icon-small' />} bgColor={props.color} />
-        <Button onClick={closeEdit} icon={<FaX className='icon-small' />} bgColor={props.color} />
+        <Button onClick={closeEdit} icon={<FaX className='icon-small' />} bgColor={props.color} color="danger" />
       </div>
     </div>
   );

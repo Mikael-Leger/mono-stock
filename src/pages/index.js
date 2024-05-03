@@ -9,6 +9,10 @@ function MyApp() {
     if (!storedProducts) {
       localStorage.setItem("products", "[]");
     }
+    const storedTags = JSON.parse(localStorage.getItem("tags"));
+    if (!storedTags) {
+      localStorage.setItem("tags", "[]");
+    }
   }, [])
 
   return (

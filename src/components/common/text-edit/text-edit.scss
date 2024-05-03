@@ -6,6 +6,7 @@
     padding: 7px;
     color: var(--color-black);
     font-size: 1.2em;
+    min-height: 4vh;
   }
 
   &.text-edit-type-name {
@@ -20,6 +21,7 @@
 
   &-placeholder {
     color: var(--color-placeholder);
+    font-style: italic;
   }
 
   .input {

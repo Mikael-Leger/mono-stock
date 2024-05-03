@@ -1,0 +1,40 @@
+.tags {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+
+  &-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: auto;
+    max-height: 65vh;
+    width: 60%;
+    
+    .text-edit-title, .input input, .input button {
+      border: var(--border-default);
+    }
+
+    .text-edit-title {
+      border-radius: var(--border-radius);
+    }
+    
+    .input input {
+      border-width: var(--border-width-left);
+      border-radius: var(--border-radius-left);
+    }
+    
+    .input .button button {
+      border: 0px;
+      border-radius: 0;
+    }
+    
+    .input .button:last-child button {
+      border-width: var(--border-width-right);
+      border-radius: var(--border-radius-right);
+    }
+  }
+}

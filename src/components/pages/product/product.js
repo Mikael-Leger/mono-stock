@@ -25,13 +25,14 @@ export default function Product() {
     
     if (productFoundIndex === -1) {
       const newProduct = { id: contextPage.item.id };
-      newProduct[`${type}`] = value;
+      newProduct[type] = value;
+      newProduct.tag = contextPage.currentTag;
       newProductsList.push(newProduct);
       setProduct(newProduct);
 
     } else {
       const { ...newProduct } = productFound;
-      newProduct[`${type}`] = value;
+      newProduct[type] = value;
       newProductsList[productFoundIndex] = newProduct;
       setProduct(newProduct);
     }
@@ -51,8 +52,8 @@ export default function Product() {
     if (productFoundIndex > -1) {
       const newProductsList = storedProducts;
       newProductsList.splice(productFoundIndex, 1);
-      const newproductsListString = JSON.stringify(newProductsList);
-      localStorage.setItem("products", newproductsListString);
+      const newProductsListString = JSON.stringify(newProductsList);
+      localStorage.setItem("products", newProductsListString);
     }
     contextPage.updatePage("products");
   }
@@ -98,14 +99,13 @@ export default function Product() {
       <div className="product-photo">
         <PhotoEdit
           src={product && product.photo}
-          saveToLocal={(v) => saveToLocal(v, "photo")}
           onClick={onPhotoClick} />
       </div>
       <div className="product-name">
         <TextEdit
           value={product && product.name}
-          color="primary"
-          saveToLocal={(v) => saveToLocal(v, "name")}
+          color="secondary"
+          onSave={(v) => saveToLocal(v, "name")}
           type="name"
           placeholder="Name" />
       </div>
@@ -113,14 +113,14 @@ export default function Product() {
         <TextEdit
           value={product && product.barcode}
           color="secondary"
-          saveToLocal={(v) => saveToLocal(v, "barcode")} placeholder="Barcode"
+          onSave={(v) => saveToLocal(v, "barcode")} placeholder="Barcode"
           type="barcode" />
       </div>
       <div className="product-quantity">
         <TextEdit
           value={product && product.quantity}
-          color="tertiary"
-          saveToLocal={(v) => saveToLocal(v, "quantity")}
+          color="secondary"
+          onSave={(v) => saveToLocal(v, "quantity")}
           placeholder="Quantity"
           type="quantity" />
       </div>

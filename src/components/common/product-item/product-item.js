@@ -31,7 +31,7 @@ export default function ProductItem(props) {
   }
 
   const showRefill = () => {
-    return (props.product.refill) ? "Refill: " + props.product.amount || "?" : "";
+    return (props.product.refill) ? "Refill: " + (props.product.amount || "?") : "";
   }
 
   return (

@@ -14,7 +14,10 @@ export default function Menu() {
   return (
     <div className="menu">
       <div className="menu-item">
-        <Button bgColor="primary" size="medium" value="Products" onClick={() => changePage("products")} />
+        <Button bgColor="primary" size="medium" value="Products" onClick={() => changePage("menu-products")} />
+      </div>
+      <div className="menu-item">
+        <Button bgColor="primary" size="medium" value="Tags" onClick={() => changePage("tags")} />
       </div>
       <div className="menu-item">
         <Button bgColor="primary" size="medium" value="Data" onClick={() => changePage("data")} />

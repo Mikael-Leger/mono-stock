@@ -4,15 +4,18 @@ import Footer from "../layouts/footer/footer";
 import Header from "../layouts/header/header";
 import Home from "@/components/pages/home/home";
 import ProductsList from "../pages/products/products";
-import Data from "@/components/pages/data";
+import Data from "@/components/pages/data/data";
 import Product from "../pages/product/product";
 import PageContext from '../../contexts/page-context';
+import MenuProducts from "../common/menu-products/menu-products";
+import Tags from "../pages/tags/tags";
 
 export default function PageSelector() {
   const [contextPage, setContextPage] = useState({
     page: 'home',
     item: null,
     lastPages: ["home"],
+    currentTag: null,
     updatePage: (newPage, item = null) => {
       setContextPage(prevState => {
         const { lastPages } = prevState;
@@ -29,14 +32,26 @@ export default function PageSelector() {
         }
       });
     },
+    updateTag: (newTag) => {
+      setContextPage(prevState => {
+        return {
+          ...prevState,
+          currentTag: newTag,
+        }
+      })
+    }
   });
 
   const pageToComponent = (name) => {
     switch (name) {
+      case "menu-products":
+        return <MenuProducts />
       case "products":
         return <ProductsList />
       case "product":
         return <Product />
+      case "tags":
+        return <Tags />
       case "data":
         return <Data />
       default:
