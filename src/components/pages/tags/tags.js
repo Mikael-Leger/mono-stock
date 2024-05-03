@@ -1,12 +1,21 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { safeLocalStorage } from "@/services/safeLocalStorage";
 import Button from "@/components/common/button/button";
 import TextEdit from "@/components/common/text-edit/text-edit";
+import translations from "@/translations/translations";
 
 import "./tags.scss";
+import LanguageContext from "@/contexts/lang-context";
 
 export default function Tags() {
+  const contextLanguage = useContext(LanguageContext);
   const [tagsList, setTagsList] = useState([]);
   const [addingTag, setAddingTag] = useState(false);
+  const [translationsByLang, setTranslationsByLang] = useState({});
+
+  useEffect(() => {
+    setTranslationsByLang(translations[contextLanguage.getLanguage()]);
+  }, [contextLanguage]);
 
   useEffect(() => {
     const storedTags = JSON.parse(localStorage.getItem("tags"));
@@ -71,7 +80,7 @@ export default function Tags() {
   return (
     <div className="tags">
       <div className="tags-add">
-        <Button value="Add" onClick={addTag} bgColor="primary" size="medium" />
+        <Button value={translationsByLang.add} onClick={addTag} bgColor="primary" size="medium" />
       </div>
       <div className="tags-container">
         { showTagsList() }

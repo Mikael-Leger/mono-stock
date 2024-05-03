@@ -8,14 +8,23 @@ import Button from '../../common/button/button';
 import PageContext from '@/contexts/page-context';
 
 import "./product.scss";
+import translations from '@/translations/translations';
+import { safeLocalStorage } from '@/services/safeLocalStorage';
+import LanguageContext from '@/contexts/lang-context';
 
 export default function Product() {
   const contextPage = useContext(PageContext);
+  const contextLanguage = useContext(LanguageContext);
   const [product, setProduct] = useState(contextPage.item);
+  const [translationsByLang, setTranslationsByLang] = useState({});
   const popupRefPhoto = useRef();
   const popupRefDelete = useRef();
   const inputCameraRef = useRef();
   const inputPhotoRef = useRef();
+
+  useEffect(() => {
+    setTranslationsByLang(translations[contextLanguage.getLanguage()]);
+  }, [contextLanguage]);
 
   const saveToLocal = (value, type) => {
     const storedProducts = JSON.parse(localStorage.getItem("products"));
@@ -107,13 +116,14 @@ export default function Product() {
           color="secondary"
           onSave={(v) => saveToLocal(v, "name")}
           type="name"
-          placeholder="Name" />
+          placeholder={translationsByLang.name} />
       </div>
       <div className="product-barcode">
         <TextEdit
           value={product && product.barcode}
           color="secondary"
-          onSave={(v) => saveToLocal(v, "barcode")} placeholder="Barcode"
+          onSave={(v) => saveToLocal(v, "barcode")}
+          placeholder={translationsByLang.barcode}
           type="barcode" />
       </div>
       <div className="product-quantity">
@@ -121,7 +131,7 @@ export default function Product() {
           value={product && product.quantity}
           color="secondary"
           onSave={(v) => saveToLocal(v, "quantity")}
-          placeholder="Quantity"
+          placeholder={translationsByLang.quantity}
           type="quantity" />
       </div>
       <div className="product-refill">
@@ -135,12 +145,22 @@ export default function Product() {
       <div className="product-delete">
         <Button
           bgColor="danger"
-          value="Delete"
+          value={translationsByLang.delete}
           onClick={(e) => {deleteProduct(e)}}
           icon={<FaRegTrashAlt className="icon-small"/>} />
       </div>
-      <Popup title="Delete this product?" onLeftOption={onDelete} confirm ref={popupRefDelete} />
-      <Popup title="How to proceed?" leftValue="Camera" rightValue="Files" onLeftOption={useCamera} onRightOption={useFiles} ref={popupRefPhoto} />
+      <Popup
+        title={translationsByLang.deleteProductMessage}
+        onLeftOption={onDelete}
+        confirm
+        ref={popupRefDelete} />
+      <Popup
+        title={translationsByLang.photoPickerMessage}
+        leftValue={translationsByLang.camera}
+        rightValue={translationsByLang.files}
+        onLeftOption={useCamera}
+        onRightOption={useFiles}
+        ref={popupRefPhoto} />
       <input
         type="file"
         accept="image/*"

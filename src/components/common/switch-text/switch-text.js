@@ -6,12 +6,20 @@ import Popup from "../popup/popup";
 import PageContext from "@/contexts/page-context";
 
 import "./switch-text.scss";
+import translations from "@/translations/translations";
+import LanguageContext from "@/contexts/lang-context";
 
 export default function SwitchText(props) {
+  const contextLanguage = useContext(LanguageContext);
   const contextPage = useContext(PageContext);
   const [refill, setRefill] = useState({on: false});
+  const [translationsByLang, setTranslationsByLang] = useState({});
   const inputRef = useRef();
   const popupRef = useRef();
+
+  useEffect(() => {
+    setTranslationsByLang(translations[contextLanguage.getLanguage()]);
+  }, [contextLanguage]);
 
   useEffect(() => {
     if (refill && inputRef.current) {
@@ -66,7 +74,7 @@ export default function SwitchText(props) {
         <input type="number" value={refill.amount} onChange={(e) => onRefillUpdate(e)} disabled={!refill.on} ref={inputRef} />
       </div>
       <div className="switch-text-submit">
-        <Button bgColor="success" onClick={(e) => submitRefill(e)} value="Refill" icon={<FaArrowsRotate className='icon-small' />} />
+        <Button bgColor="success" onClick={(e) => submitRefill(e)} value={translations[localStorage.getItem("lang")].refill} icon={<FaArrowsRotate className='icon-small' />} />
       </div>
       <Popup title="Submit the refill?" onLeftOption={confirmSubmit} confirm ref={popupRef} />
     </div>

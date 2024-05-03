@@ -3,9 +3,18 @@ import "./product-item.scss"
 import Image from "next/image";
 import { FaRegFileImage, FaRegTrashAlt } from "react-icons/fa";
 import PageContext from "@/contexts/page-context";
+import translations from "@/translations/translations";
+import { safeLocalStorage } from "@/services/safeLocalStorage";
+import LanguageContext from "@/contexts/lang-context";
 
 export default function ProductItem(props) {
+  const contextLanguage = useContext(LanguageContext);
   const contextPage = useContext(PageContext);
+  const [translationsByLang, setTranslationsByLang] = useState({});
+
+  useEffect(() => {
+    setTranslationsByLang(translations[contextLanguage.getLanguage()]);
+  }, [contextLanguage]);
 
   const goToProduct = () => {
     contextPage.updatePage("product", props.product);
@@ -27,11 +36,11 @@ export default function ProductItem(props) {
   }
 
   const showQuantity = () => {
-    return "Quantity: " + ((props.product.quantity !== undefined && props.product.quantity !== "") ? props.product.quantity : "0");
+    return translationsByLang.quantity + ": " + ((props.product.quantity !== undefined && props.product.quantity !== "") ? props.product.quantity : "0");
   }
 
   const showRefill = () => {
-    return (props.product.refill) ? "Refill: " + (props.product.amount || "?") : "";
+    return (props.product.refill) ? translationsByLang.refill + ": " + (props.product.amount || "?") : "";
   }
 
   return (

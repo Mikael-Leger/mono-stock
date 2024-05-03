@@ -1,11 +1,20 @@
-import { useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Button from "@/components/common/button/button";
 import Popup from "@/components/common/popup/popup";
 
 import "./data.scss";
+import translations from "@/translations/translations";
+import { safeLocalStorage } from "@/services/safeLocalStorage";
+import LanguageContext from "@/contexts/lang-context";
 
 export default function Data() {
+  const contextLanguage = useContext(LanguageContext);
+  const [translationsByLang, setTranslationsByLang] = useState({});
   const popupRef = useRef();
+
+  useEffect(() => {
+    setTranslationsByLang(translations[contextLanguage.getLanguage()]);
+  }, [contextLanguage]);
 
   const importData = () => {
     const input = document.createElement('input');
@@ -55,15 +64,15 @@ export default function Data() {
   return (
     <div className="data">
       <div className="data-item">
-        <Button value="Import" bgColor="primary" size="medium" onClick={importData} />
+        <Button value={translationsByLang.import} bgColor="primary" size="medium" onClick={importData} />
       </div>
       <div className="data-item">
-        <Button value="Export" bgColor="primary" size="medium" onClick={exportData} />
+        <Button value={translationsByLang.export} bgColor="primary" size="medium" onClick={exportData} />
       </div>
       <div className="data-item">
-        <Button value="Reset" bgColor="primary" size="medium" onClick={resetData} />
+        <Button value={translationsByLang.reset} bgColor="primary" size="medium" onClick={resetData} />
       </div>
-      <Popup title="Reset data?" onLeftOption={confirmReset} confirm ref={popupRef} />
+      <Popup title={translationsByLang.resetMessage} onLeftOption={confirmReset} confirm ref={popupRef} />
     </div>
   );
 }

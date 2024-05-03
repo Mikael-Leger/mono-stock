@@ -6,13 +6,22 @@ import Popup from "../../common/popup/popup";
 import PageContext from "@/contexts/page-context";
 
 import "./products.scss";
+import translations from "@/translations/translations";
+import { safeLocalStorage } from "@/services/safeLocalStorage";
+import LanguageContext from "@/contexts/lang-context";
 
 export default function ProductsList() {
   const contextPage = useContext(PageContext);
+  const contextLanguage = useContext(LanguageContext);
   const [productsList, setProductsList] = useState([]);
+  const [translationsByLang, setTranslationsByLang] = useState({});
   const popupDeleteRef = useRef();
   const popupRefillRef = useRef();
-  
+
+  useEffect(() => {
+    setTranslationsByLang(translations[contextLanguage.getLanguage()]);
+  }, [contextLanguage]);
+
   useEffect(() => {
     const productsByTag = getProductsByTag();
     setProductsList(productsByTag);
@@ -81,16 +90,24 @@ export default function ProductsList() {
   return (
     <div className="products">
       <div className="products-add">
-        <Button value="Add" onClick={addProduct} bgColor="primary" size="medium" />
+        <Button value={translationsByLang.add} onClick={addProduct} bgColor="primary" size="medium" />
       </div>
       <div className="products-container">
         { showProductsList() }
       </div>
       <div className="products-refill">
-        <Button value="Refill" onClick={refillProducts}  bgColor="success" size="medium" icon={<FaArrowsRotate className="icon-small"/>} />
+        <Button value={translationsByLang.refill} onClick={refillProducts}  bgColor="success" size="medium" icon={<FaArrowsRotate className="icon-small"/>} />
       </div>
-      <Popup title="Delete this product?" onLeftOption={onDelete} confirm ref={popupDeleteRef} />
-      <Popup title="Submit the refill?" onLeftOption={confirmSubmit} confirm ref={popupRefillRef} />
+      <Popup
+        title={translationsByLang.deleteProductMessage}
+        onLeftOption={onDelete}
+        confirm
+        ref={popupDeleteRef} />
+      <Popup
+        title={translationsByLang.refillMessage}
+        onLeftOption={confirmSubmit}
+        confirm
+        ref={popupRefillRef} />
     </div>
   );
 }

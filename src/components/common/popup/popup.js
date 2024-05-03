@@ -1,12 +1,21 @@
-import { forwardRef, useEffect, useRef, useState, useImperativeHandle  } from "react";
+import { forwardRef, useEffect, useRef, useState, useImperativeHandle, useContext  } from "react";
 import Button from "../button/button";
 
 import "./popup.scss";
+import translations from "@/translations/translations";
+import { safeLocalStorage } from "@/services/safeLocalStorage";
+import LanguageContext from "@/contexts/lang-context";
 
 // eslint-disable-next-line react/display-name
 const Popup = forwardRef((props, ref) => {
+  const contextLanguage = useContext(LanguageContext);
   const [isPopUpVisible, setPopUpVisible] = useState({visible: false, id: null});
+  const [translationsByLang, setTranslationsByLang] = useState({});
   const refPopUp = useRef(null);
+
+  useEffect(() => {
+    setTranslationsByLang(translations[contextLanguage.getLanguage()]);
+  }, [contextLanguage]);
 
   useImperativeHandle(ref, () => ({
     openPopup (id) {
@@ -46,8 +55,8 @@ const Popup = forwardRef((props, ref) => {
         <div className="popup-box-container" ref={refPopUp}>
           <div className="popup-box-container-title">{ props.title }</div>
           <div className="popup-box-container-actions">
-            <Button value={(props.confirm) ? "Yes" : props.leftValue} outlined color={(props.confirm) ? "danger" : "white"} size="medium" onClick={popUpLeftOption} />
-            <Button value={(props.confirm) ? "No" : props.rightValue} outlined color="white" size="medium" onClick={popUpRightOption} />
+            <Button value={(props.confirm) ? translationsByLang.yes : props.leftValue} outlined color={(props.confirm) ? "danger" : "white"} size="medium" onClick={popUpLeftOption} />
+            <Button value={(props.confirm) ? translationsByLang.no : props.rightValue} outlined color="white" size="medium" onClick={popUpRightOption} />
           </div>
         </div>
       </div>

@@ -36,7 +36,9 @@ export default function TextEdit(props) {
   const closeEdit = () => {
     setTitle(props.value);
     setEditable(false);
-    props.afterClose();
+    if (props.afterClose) {
+      props.afterClose();
+    }
   }
 
   const showTitle = () => {
