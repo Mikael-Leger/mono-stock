@@ -7,6 +7,18 @@
   color: var(--color-black);
   position: relative;
 
+  &-photo {
+    display: flex;
+    justify-content: center;
+    height: 70px;
+    width: 70px;
+    background-color: var(--color-empty);
+
+    img {
+      height: 100%;
+    }
+  }
+
   &-text {
     display: flex;
     flex-direction: column;

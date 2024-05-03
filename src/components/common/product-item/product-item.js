@@ -22,7 +22,7 @@ export default function ProductItem(props) {
 
   const showPhoto = () => {
     if (props.product.photo) {
-      return <Image src={props.product.photo} width={70} height={70} alt="Product photo" />;
+      return <img src={props.product.photo} alt="Product photo" />;
     }
     return <div className="photo-empty"><FaRegFileImage className="icon-medium" /></div>;
   }

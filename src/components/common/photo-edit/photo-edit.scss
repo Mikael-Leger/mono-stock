@@ -1,10 +1,17 @@
 .photo-edit {
+  &-container {
+    width: 150px;
+    height: 150px;
+    background-color: var(--color-empty);
+
+    > * {
+      height: 100%;
+    }
+  }
+
  .photo-empty {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 150px;
-    height: 150px;
-    background-color: var(--color-empty);
   }
 }

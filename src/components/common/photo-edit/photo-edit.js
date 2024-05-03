@@ -13,7 +13,7 @@ export default function PhotoEdit(props) {
 
   const showPhoto = () => {
     if (photoURL) {
-      return <Image src={photoURL} width={150} height={150} alt="Product photo" />;
+      return <img src={photoURL} alt="Product photo" />;
     }
     return <div className="photo-empty"><FaRegFileImage className="icon-big" /></div>;
   }
