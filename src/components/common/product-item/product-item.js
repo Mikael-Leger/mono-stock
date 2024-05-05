@@ -1,28 +1,39 @@
 import { useState, useEffect, useContext } from "react";
-import "./product-item.scss"
 import Image from "next/image";
 import { FaRegFileImage, FaRegTrashAlt } from "react-icons/fa";
 import PageContext from "@/contexts/page-context";
 import translations from "@/translations/translations";
 import { safeLocalStorage } from "@/services/safeLocalStorage";
 import LanguageContext from "@/contexts/lang-context";
+import { getImage } from "@/services/IndexedDB";
+
+import "./product-item.scss"
 
 export default function ProductItem(props) {
   const contextLanguage = useContext(LanguageContext);
   const contextPage = useContext(PageContext);
   const [translationsByLang, setTranslationsByLang] = useState({});
+  const [photo, setPhoto] = useState(null);
 
   useEffect(() => {
     setTranslationsByLang(translations[contextLanguage.getLanguage()]);
   }, [contextLanguage]);
+
+  useEffect(() => {
+    if (props.product.photo) {
+      getImage(props.product.photo).then((image) => {
+        setPhoto(image.imageData);
+      });
+    }
+  }, [props.product.photo]);
 
   const goToProduct = () => {
     contextPage.updatePage("product", props.product);
   }
 
   const showPhoto = () => {
-    if (props.product.photo) {
-      return <img src={props.product.photo} alt="Product photo" />;
+    if (photo) {
+      return <img src={photo} alt="Product photo" />;
     }
     return <div className="photo-empty"><FaRegFileImage className="icon-medium" /></div>;
   }

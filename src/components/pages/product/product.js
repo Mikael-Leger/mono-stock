@@ -11,12 +11,14 @@ import "./product.scss";
 import translations from '@/translations/translations';
 import { safeLocalStorage } from '@/services/safeLocalStorage';
 import LanguageContext from '@/contexts/lang-context';
+import { addImage, deleteImage, isDBUp, updateImage } from '@/services/IndexedDB';
 
 export default function Product() {
   const contextPage = useContext(PageContext);
   const contextLanguage = useContext(LanguageContext);
   const [product, setProduct] = useState(contextPage.item);
   const [translationsByLang, setTranslationsByLang] = useState({});
+  const [imageChanged, setImageChanged] = useState(false);
   const popupRefPhoto = useRef();
   const popupRefDelete = useRef();
   const inputCameraRef = useRef();
@@ -25,6 +27,12 @@ export default function Product() {
   useEffect(() => {
     setTranslationsByLang(translations[contextLanguage.getLanguage()]);
   }, [contextLanguage]);
+
+  useEffect(() => {
+    if (imageChanged) {
+      setImageChanged(false);
+    }
+  }, [imageChanged]);
 
   const saveToLocal = (value, type) => {
     const storedProducts = JSON.parse(localStorage.getItem("products"));
@@ -58,6 +66,8 @@ export default function Product() {
   const onDelete = (id) => {
     const storedProducts = JSON.parse(localStorage.getItem("products"));
     const productFoundIndex = storedProducts.findIndex(product => product.id === id);
+    deleteImage(storedProducts[productFoundIndex].photo);
+
     if (productFoundIndex > -1) {
       const newProductsList = storedProducts;
       newProductsList.splice(productFoundIndex, 1);
@@ -86,7 +96,14 @@ export default function Product() {
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        saveToLocal(reader.result, "photo");
+        if (product.photo) {
+          updateImage(product.photo, reader.result);
+          setImageChanged(true);
+        } else {
+          addImage(reader.result).then((addedImageId) => {
+            saveToLocal(addedImageId, "photo");
+          });
+        }
       };
       reader.readAsDataURL(file);
     }
@@ -97,7 +114,9 @@ export default function Product() {
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        saveToLocal(reader.result, "photo");
+        addImage(reader.result).then((addedImageId) => {
+          saveToLocal(addedImageId, "photo");
+        });
       };
       reader.readAsDataURL(file);
     }
@@ -107,8 +126,9 @@ export default function Product() {
     <div className="product">
       <div className="product-photo">
         <PhotoEdit
-          src={product && product.photo}
-          onClick={onPhotoClick} />
+          photoId={product && product.photo}
+          onClick={onPhotoClick}
+          imageChanged={imageChanged} />
       </div>
       <div className="product-name">
         <TextEdit

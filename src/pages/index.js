@@ -5,6 +5,7 @@ import PageSelector from '@/components/page-selector/page-selector';
 
 import "../app/globals.scss";
 import "./index.scss";
+import { closeDB, isDBUp, openDB } from '@/services/IndexedDB';
 
 function MyApp() {
   const [contextLanguage, setContextLanguage] = useState({
@@ -33,6 +34,12 @@ function MyApp() {
     if (!storedLang) {
       localStorage.setItem("lang", "fr");
     }
+
+    openDB();
+
+    window.addEventListener('beforeunload', () => {
+      closeDB();
+    });
   }, []);
 
   return (

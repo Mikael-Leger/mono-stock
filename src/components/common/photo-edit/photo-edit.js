@@ -2,18 +2,25 @@ import React, { useEffect, useRef, useState } from 'react';
 import Image from "next/image";
 
 import { FaRegFileImage } from "react-icons/fa";
+import { getImage } from '@/services/IndexedDB';
+
 import "./photo-edit.scss";
 
 export default function PhotoEdit(props) {
-  const [photoURL, setPhotoURL] = useState(props.src);
+  const [photo, setPhoto] = useState(null);
 
   useEffect(() => {
-    setPhotoURL(props.src);
-  }, [props.src]);
+    console.log("use eff photo edit");
+    if (props.photoId) {
+      getImage(props.photoId).then((image) => {
+        setPhoto(image.imageData);
+      });
+    }
+  }, [props.photoId, props.imageChanged]);
 
   const showPhoto = () => {
-    if (photoURL) {
-      return <img src={photoURL} alt="Product photo" />;
+    if (photo) {
+      return <img src={photo} alt="Product photo" />;
     }
     return <div className="photo-empty"><FaRegFileImage className="icon-big" /></div>;
   }
