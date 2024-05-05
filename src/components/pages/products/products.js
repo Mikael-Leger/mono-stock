@@ -1,14 +1,14 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { FaArrowsRotate } from "react-icons/fa6";
+
 import ProductItem from "../../common/product-item/product-item";
 import Button from "../../common/button/button";
 import Popup from "../../common/popup/popup";
 import PageContext from "@/contexts/page-context";
+import translations from "@/translations/translations";
+import LanguageContext from "@/contexts/lang-context";
 
 import "./products.scss";
-import translations from "@/translations/translations";
-import { safeLocalStorage } from "@/services/safeLocalStorage";
-import LanguageContext from "@/contexts/lang-context";
 
 export default function ProductsList() {
   const contextPage = useContext(PageContext);

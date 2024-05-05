@@ -1,11 +1,11 @@
 import { useContext, useEffect, useRef, useState } from "react";
+
 import Button from "@/components/common/button/button";
 import Popup from "@/components/common/popup/popup";
+import translations from "@/translations/translations";
+import LanguageContext from "@/contexts/lang-context";
 
 import "./data.scss";
-import translations from "@/translations/translations";
-import { safeLocalStorage } from "@/services/safeLocalStorage";
-import LanguageContext from "@/contexts/lang-context";
 
 export default function Data() {
   const contextLanguage = useContext(LanguageContext);

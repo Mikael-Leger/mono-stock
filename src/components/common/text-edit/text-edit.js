@@ -1,12 +1,13 @@
 import React, { useState, useRef, useEffect  } from 'react';
-
 import { FaRegSave } from "react-icons/fa";
 import { FaX } from "react-icons/fa6";
+
 import Button from '../button/button';
+
 import "./text-edit.scss"
 
-export default function TextEdit(props) {
-  const [title, setTitle] = useState(props.value);
+export default function TextEdit({ value, defaultEditable, placeholder, type, color, onSave, afterClose }) {
+  const [title, setTitle] = useState(value);
   const [isEditable, setEditable] = useState(false);
   const inputRef = useRef(null);
 
@@ -17,10 +18,10 @@ export default function TextEdit(props) {
   }, [isEditable]);
 
   useEffect(() => {
-    if (props.defaultEditable) {
+    if (defaultEditable) {
       setEditable(true);
     }
-  }, []);
+  }, [defaultEditable]);
 
   const startEdit = () => {
     setEditable(true);
@@ -28,16 +29,16 @@ export default function TextEdit(props) {
 
   const saveEdit = () => {
     const { value } = inputRef.current;
-    props.onSave(value);
+    onSave(value);
     setTitle(value)
     setEditable(false);
   }
 
   const closeEdit = () => {
-    setTitle(props.value);
+    setTitle(value);
     setEditable(false);
-    if (props.afterClose) {
-      props.afterClose();
+    if (afterClose) {
+      afterClose();
     }
   }
 
@@ -45,7 +46,7 @@ export default function TextEdit(props) {
     let titleStr = title;
 
     if (title === undefined || title === "") {
-      titleStr = <div className='text-edit-placeholder'>{props.placeholder}</div>;
+      titleStr = <div className='text-edit-placeholder'>{placeholder}</div>;
 
     }
 
@@ -59,12 +60,12 @@ export default function TextEdit(props) {
   }
 
   return (
-    <div className={"text-edit color-" + props.color + " text-edit-type-" + props.type}>
+    <div className={"text-edit color-" + color + " text-edit-type-" + type}>
       { showTitle() }
       <div className={"input " + (!isEditable ? "hidden" : "")}>
         <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} ref={inputRef} />
-        <Button onClick={saveEdit} icon={<FaRegSave className='icon-small' />} bgColor={props.color} />
-        <Button onClick={closeEdit} icon={<FaX className='icon-small' />} bgColor={props.color} color="danger" />
+        <Button onClick={saveEdit} icon={<FaRegSave className='icon-small' />} bgColor={color} />
+        <Button onClick={closeEdit} icon={<FaX className='icon-small' />} bgColor={color} color="danger" />
       </div>
     </div>
   );

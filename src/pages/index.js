@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react';
-import LanguageContext from '@/contexts/lang-context';
+import React, { useEffect, useState } from 'react';
+
 import { safeLocalStorage } from '@/services/safeLocalStorage';
+import { closeDB, openDB } from '@/services/IndexedDB';
+import LanguageContext from '@/contexts/lang-context';
 import PageSelector from '@/components/page-selector/page-selector';
 
-import "../app/globals.scss";
 import "./index.scss";
-import { closeDB, isDBUp, openDB } from '@/services/IndexedDB';
 
 function MyApp() {
   const [contextLanguage, setContextLanguage] = useState({

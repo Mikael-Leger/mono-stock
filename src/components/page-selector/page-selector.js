@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import BackButton from "../common/back-button/back-button";
 import Footer from "../layouts/footer/footer";
 import Header from "../layouts/header/header";
@@ -9,6 +10,8 @@ import Product from "../pages/product/product";
 import PageContext from '../../contexts/page-context';
 import MenuProducts from "../common/menu-products/menu-products";
 import Tags from "../pages/tags/tags";
+
+import "./page-selector.scss";
 
 export default function PageSelector() {
   const [contextPage, setContextPage] = useState({

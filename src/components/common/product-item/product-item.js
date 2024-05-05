@@ -1,15 +1,14 @@
 import { useState, useEffect, useContext } from "react";
-import Image from "next/image";
 import { FaRegFileImage, FaRegTrashAlt } from "react-icons/fa";
+
+import { getImage } from "@/services/IndexedDB";
 import PageContext from "@/contexts/page-context";
 import translations from "@/translations/translations";
-import { safeLocalStorage } from "@/services/safeLocalStorage";
 import LanguageContext from "@/contexts/lang-context";
-import { getImage } from "@/services/IndexedDB";
 
 import "./product-item.scss"
 
-export default function ProductItem(props) {
+export default function ProductItem({ product, deleteProduct }) {
   const contextLanguage = useContext(LanguageContext);
   const contextPage = useContext(PageContext);
   const [translationsByLang, setTranslationsByLang] = useState({});
@@ -20,15 +19,15 @@ export default function ProductItem(props) {
   }, [contextLanguage]);
 
   useEffect(() => {
-    if (props.product.photo) {
-      getImage(props.product.photo).then((image) => {
+    if (product.photo) {
+      getImage(product.photo).then((image) => {
         setPhoto(image.imageData);
       });
     }
-  }, [props.product.photo]);
+  }, [product.photo]);
 
   const goToProduct = () => {
-    contextPage.updatePage("product", props.product);
+    contextPage.updatePage("product", product);
   }
 
   const showPhoto = () => {
@@ -39,19 +38,19 @@ export default function ProductItem(props) {
   }
 
   const showName = () => {
-    return ((props.product.name) ? props.product.name : "---------------------------");
+    return ((product.name) ? product.name : "---------------------------");
   }
 
   const showBarcode = () => {
-    return ((props.product.barcode !== undefined) ? props.product.barcode : "XXXX XXXX XXXX");
+    return ((product.barcode !== undefined) ? product.barcode : "XXXX XXXX XXXX");
   }
 
   const showQuantity = () => {
-    return translationsByLang.quantity + ": " + ((props.product.quantity !== undefined && props.product.quantity !== "") ? props.product.quantity : "?");
+    return translationsByLang.quantity + ": " + ((product.quantity !== undefined && product.quantity !== "") ? product.quantity : "?");
   }
 
   const showRefill = () => {
-    return (props.product.refill) ? translationsByLang.refill + ": " + (props.product.amount || "?") : "";
+    return (product.refill) ? translationsByLang.refill + ": " + (product.amount || "?") : "";
   }
 
   return (
@@ -74,7 +73,7 @@ export default function ProductItem(props) {
         </div>
       </div>
       <div className="product-item-actions">
-        <FaRegTrashAlt className="icon-small danger" onClick={(e) => props.deleteProduct(e, props.product.id)} />
+        <FaRegTrashAlt className="icon-small danger" onClick={(e) => deleteProduct(e, product.id)} />
       </div>
     </div>
   );

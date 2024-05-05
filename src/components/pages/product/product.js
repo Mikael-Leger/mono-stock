@@ -1,17 +1,17 @@
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { useContext, useEffect, useRef, useState } from 'react';
+
+import { addImage, deleteImage, updateImage } from '@/services/IndexedDB';
 import PhotoEdit from "../../common/photo-edit/photo-edit";
 import TextEdit from "../../common/text-edit/text-edit";
 import SwitchText from '../../common/switch-text/switch-text';
 import Popup from '../../common/popup/popup';
 import Button from '../../common/button/button';
 import PageContext from '@/contexts/page-context';
+import translations from '@/translations/translations';
+import LanguageContext from '@/contexts/lang-context';
 
 import "./product.scss";
-import translations from '@/translations/translations';
-import { safeLocalStorage } from '@/services/safeLocalStorage';
-import LanguageContext from '@/contexts/lang-context';
-import { addImage, deleteImage, isDBUp, updateImage } from '@/services/IndexedDB';
 
 export default function Product() {
   const contextPage = useContext(PageContext);

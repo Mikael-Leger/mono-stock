@@ -1,10 +1,10 @@
 import { forwardRef, useEffect, useRef, useState, useImperativeHandle, useContext  } from "react";
+
 import Button from "../button/button";
+import translations from "@/translations/translations";
+import LanguageContext from "@/contexts/lang-context";
 
 import "./popup.scss";
-import translations from "@/translations/translations";
-import { safeLocalStorage } from "@/services/safeLocalStorage";
-import LanguageContext from "@/contexts/lang-context";
 
 // eslint-disable-next-line react/display-name
 const Popup = forwardRef((props, ref) => {

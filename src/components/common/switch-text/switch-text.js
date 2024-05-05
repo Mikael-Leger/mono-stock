@@ -1,15 +1,16 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { FaCircle, FaRegSave } from "react-icons/fa";
+import { FaCircle } from "react-icons/fa";
 import { FaArrowsRotate } from "react-icons/fa6";
+
 import Button from "../button/button";
 import Popup from "../popup/popup";
 import PageContext from "@/contexts/page-context";
-
-import "./switch-text.scss";
 import translations from "@/translations/translations";
 import LanguageContext from "@/contexts/lang-context";
 
-export default function SwitchText(props) {
+import "./switch-text.scss";
+
+export default function SwitchText({ product, saveAmountToLocal, saveQuantityToLocal, saveRefillToLocal }) {
   const contextLanguage = useContext(LanguageContext);
   const contextPage = useContext(PageContext);
   const [refill, setRefill] = useState({on: false});
@@ -28,15 +29,15 @@ export default function SwitchText(props) {
   }, [refill]);
 
   useEffect(() => {
-    if (props.product) {
-      setRefill({on: props.product.refill, amount: props.product.amount});
+    if (product) {
+      setRefill({on: product.refill, amount: product.amount});
     }
-  }, [props.product]);
+  }, [product]);
 
   const switchActivation = () => {
-    if (props.product) {
-      setRefill({ on: !refill.on, amount: props.product.amount });
-      props.saveRefillToLocal(!refill.on);
+    if (product) {
+      setRefill({ on: !refill.on, amount: product.amount });
+      saveRefillToLocal(!refill.on);
     }
   }
 
@@ -48,17 +49,17 @@ export default function SwitchText(props) {
 
   const confirmSubmit = () => {
     setRefill({ on: false, amount: 0 });
-    props.saveRefillToLocal(false);
-    props.saveAmountToLocal(0);
-    if (props.product.quantity) {
-      let resQuantity = Math.max(props.product.quantity - refill.amount, 0);
-      props.saveQuantityToLocal(resQuantity);
+    saveRefillToLocal(false);
+    saveAmountToLocal(0);
+    if (product.quantity) {
+      let resQuantity = Math.max(product.quantity - refill.amount, 0);
+      saveQuantityToLocal(resQuantity);
     }
   }
 
   const onRefillUpdate = (e) => {
     setRefill({on: refill.on, amount: e.target.value});
-    props.saveAmountToLocal(e.target.value);
+    saveAmountToLocal(e.target.value);
   }
 
   if (!refill) {
@@ -74,7 +75,7 @@ export default function SwitchText(props) {
         <input type="number" value={refill.amount} onChange={(e) => onRefillUpdate(e)} disabled={!refill.on} ref={inputRef} />
       </div>
       <div className="switch-text-submit">
-        <Button bgColor="success" onClick={(e) => submitRefill(e)} value={translations[localStorage.getItem("lang")].refill} icon={<FaArrowsRotate className='icon-small' />} />
+        <Button bgColor="success" onClick={(e) => submitRefill(e)} value={translationsByLang.refill} icon={<FaArrowsRotate className='icon-small' />} />
       </div>
       <Popup title="Submit the refill?" onLeftOption={confirmSubmit} confirm ref={popupRef} />
     </div>

@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import { safeLocalStorage } from "@/services/safeLocalStorage";
+
 import LanguageContext from "@/contexts/lang-context";
-import Image from "next/image";
 import flagFr from "@/assets/flag_fr.png";
 import flagEn from "@/assets/flag_en.png";
 
@@ -23,10 +22,10 @@ export default function Lang() {
   return (
     <div className="lang" onClick={updateLang}>
       <div className={"lang-flag" + ((lang === "en") ? " hidden" : "")}>
-        <Image src={flagFr} alt="flag_fr" className={(lang === "en") ? "hidden" : ""} />
+        <img src={flagFr} alt="flag_fr" className={(lang === "en") ? "hidden" : ""} />
       </div>
       <div className={"lang-flag" + ((lang === "fr") ? " hidden" : "")}>
-        <Image src={flagEn} alt="flag_en" />
+        <img src={flagEn} alt="flag_en" />
       </div>
     </div>
   );

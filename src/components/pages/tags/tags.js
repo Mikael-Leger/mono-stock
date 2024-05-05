@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import { safeLocalStorage } from "@/services/safeLocalStorage";
+
 import Button from "@/components/common/button/button";
 import TextEdit from "@/components/common/text-edit/text-edit";
 import translations from "@/translations/translations";
+import LanguageContext from "@/contexts/lang-context";
 
 import "./tags.scss";
-import LanguageContext from "@/contexts/lang-context";
 
 export default function Tags() {
   const contextLanguage = useContext(LanguageContext);

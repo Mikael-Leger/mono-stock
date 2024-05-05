@@ -24,7 +24,7 @@ const openDB = () => {
 
 const closeDB = () => {
   if (db) {
-    db.close(); // Close the database connection if it exists
+    db.close();
   }
 }
 
