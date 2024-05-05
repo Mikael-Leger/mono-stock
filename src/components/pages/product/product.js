@@ -114,9 +114,14 @@ export default function Product() {
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        addImage(reader.result).then((addedImageId) => {
-          saveToLocal(addedImageId, "photo");
-        });
+        if (product.photo) {
+          updateImage(product.photo, reader.result);
+          setImageChanged(true);
+        } else {
+          addImage(reader.result).then((addedImageId) => {
+            saveToLocal(addedImageId, "photo");
+          });
+        }
       };
       reader.readAsDataURL(file);
     }

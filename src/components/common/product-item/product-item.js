@@ -47,7 +47,7 @@ export default function ProductItem(props) {
   }
 
   const showQuantity = () => {
-    return translationsByLang.quantity + ": " + ((props.product.quantity !== undefined && props.product.quantity !== "") ? props.product.quantity : "0");
+    return translationsByLang.quantity + ": " + ((props.product.quantity !== undefined && props.product.quantity !== "") ? props.product.quantity : "?");
   }
 
   const showRefill = () => {
