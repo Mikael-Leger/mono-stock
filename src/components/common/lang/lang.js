@@ -22,10 +22,10 @@ export default function Lang() {
   return (
     <div className="lang" onClick={updateLang}>
       <div className={"lang-flag" + ((lang === "en") ? " hidden" : "")}>
-        <img src={flagFr} alt="flag_fr" className={(lang === "en") ? "hidden" : ""} />
+        <img src={flagFr.src} alt="flag_fr" className={(lang === "en") ? "hidden" : ""} />
       </div>
       <div className={"lang-flag" + ((lang === "fr") ? " hidden" : "")}>
-        <img src={flagEn} alt="flag_en" />
+        <img src={flagEn.src} alt="flag_en" />
       </div>
     </div>
   );

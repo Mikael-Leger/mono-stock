@@ -1,11 +1,19 @@
 .photo-edit {
   &-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 150px;
     height: 150px;
     background-color: var(--color-empty);
 
-    > * {
-      height: 100%;
+    &-more {
+      &-height {
+        height: 100%;
+      }
+      &-width {
+        width: 100%;
+      }
     }
   }
 

@@ -19,7 +19,11 @@ export default function PhotoEdit({ photoId, imageChanged, onClick }) {
 
   const showPhoto = () => {
     if (photo) {
-      return <img src={photo} alt="Product photo" />;
+      const image = new Image();
+      image.src = photo;
+      const height = image.naturalHeight;
+      const width = image.naturalWidth;
+      return <img src={photo} className={"photo-edit-container-more-" + (height >= width ? "height": "width")} alt="Product photo" />;
     }
     return <div className="photo-empty"><FaRegFileImage className="icon-big" /></div>;
   }

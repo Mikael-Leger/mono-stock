@@ -10,12 +10,18 @@
   &-photo {
     display: flex;
     justify-content: center;
+    align-items: center;
     height: 70px;
     width: 70px;
     background-color: var(--color-empty);
 
-    img {
-      height: 100%;
+    &-more {
+      &-height {
+        height: 100%;
+      }
+      &-width {
+        width: 100%;
+      }
     }
   }
 
